@@ -6,7 +6,8 @@ scriptencoding utf-8
 if !1 | finish | endif
 
 set nocompatible
-set number
+set relativenumber
+set hidden
 syntax enable
 set fileencodings=utf-8,sjis,euc-jp,latin
 set encoding=utf-8
@@ -20,29 +21,28 @@ set cmdheight=1
 set laststatus=2
 set scrolloff=10
 set expandtab
-"let loaded_matchparen = 1
 set shell=zsh
 set backupskip=/tmp/*,/private/tmp/*
+set noswapfile
+set splitbelow
+set splitright
 
-" incremental substitution (neovim)
+" Incremental substitution (neovim)
 if has('nvim')
   set inccommand=split
 endif
 
 " Suppress appending <PasteStart> and <PasteEnd> when pasting
 set t_BE=
-
 set nosc noru nosm
+
 " Don't redraw while executng macros (good performance config)
 set lazyredraw
-"set showmatch
-" How many tenths of a second to blink when matching brackets
-"set mat=2
+
 " Ignore case when searching
 set ignorecase
-" Be smart when using tabs ;)
-set smarttab
-" indents
+
+" Indents
 filetype plugin indent on
 set shiftwidth=2
 set tabstop=2
@@ -50,16 +50,35 @@ set ai "Auto indent
 set si "Smart indent
 set nowrap "No Wrap lines
 set backspace=start,eol,indent
+
 " Finding files - Search down into subfolders
 set path+=**
 set wildignore+=*/node_modules/*
 
+" Read/Save file when switching buffers
+set autowrite
+set autoread
+
+" Undo file & dir
+set undofile
+set undodir=/tmp
 " Turn off paste mode when leaving insert
 autocmd InsertLeave * set nopaste
 
-" Add asterisks in block comments
-set formatoptions+=r
+" Disables automatic commenting on newline
+autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
+" Load back at the same line
+autocmd BufReadPost *
+\ if line("'\"") > 0 && line("'\"") <= line("$") |
+\ exe "normal! g'\"" |
+\ endif
 
+" Set spelling on for git commits and markdown files.
+augroup SetSpelling
+    autocmd!
+    autocmd FileType gitcommit setlocal spell spelllang=en_us
+    autocmd FileType markdown setlocal spell spelllang=en_us
+augroup END
 "}}}
 
 " Highlights "{{{
@@ -134,3 +153,24 @@ endif
 " Extras "{{{
 " ---------------------------------------------------------------------
 set exrc
+
+  " Trailing whitespace removal on save
+augroup TrailingWhitespace
+    autocmd FileType python, json
+    autocmd BufWritePre <buffer> :%s/\s\+$//e
+    command! W :w
+    command! Q :q
+  augroup END
+
+  " Toggle quickfix windown
+function! ToggleQuickfix()
+for buffer in tabpagebuflist()
+if bufname(buffer) is# ''
+  cclose
+  return
+endif
+endfor
+
+copen
+endfunction
+

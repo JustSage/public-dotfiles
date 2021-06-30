@@ -1,0 +1,12 @@
+[init]
+	defaultBranch = master
+
+[user]
+	name = Sage Baram
+	email = sagebaram@gamil.com
+[core]
+	editor = nvim
+	excludesfile = $HOME/dotfiles/.gitignore_global
+	autocrlf = input
+[color]
+	ui = true

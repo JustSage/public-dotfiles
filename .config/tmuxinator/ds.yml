@@ -1,0 +1,31 @@
+# /Users/sagebaram/.config/tmuxinator/ds.yml
+
+name: ds
+root: ~/dev/projects/code/python/datascience
+
+# Project hooks
+
+# Runs in each window and pane before window/pane specific commands. Useful for setting up interpreter versions.
+pre_window: conda activate ds
+
+startup_window: editor
+startup_pane: 1
+
+windows:
+  - editor: 
+      layout: main-vertical
+      panes:
+        - editor:
+          - clear
+          - nvim .
+  - server:
+      layout: 8f74,128x35,0,0[128x25,0,0,13,128x9,0,26,15]
+      panes:
+        - package:
+          - clear
+          - 
+        - lab:
+          - jupyter-lab
+  - logs: 
+      - clear
+      - tail -f log/development.log

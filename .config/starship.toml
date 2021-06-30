@@ -1,0 +1,16 @@
+# Don't print a new line at the start of the prompt
+add_newline = false
+
+# Make prompt a single line instead of two lines
+[line_break]
+disabled = true
+
+# Change the default > to ->
+[character]
+success_symbol = "[ﭲ](bold green)"     
+error_symbol = "[﵄](bold red)"    
+
+# Change default conda prompt
+[conda]
+
+format = "[🅔 $environment ](green)"

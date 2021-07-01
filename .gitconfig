@@ -6,7 +6,7 @@
 	email = sagebaram@gamil.com
 [core]
 	editor = nvim
-	excludesfile = $HOME/dotfiles/.gitignore_global
+	excludesfile = $HOME/.gitignore_global
 	autocrlf = input
 [color]
 	ui = true

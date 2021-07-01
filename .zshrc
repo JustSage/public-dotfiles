@@ -1,7 +1,8 @@
 ### PATHS ###
 export PATH="/usr/local/bin/conda/bin:$PATH"
-export TERM="xterm-256color"
+export TERM='xterm-256color'
 export EDITOR='nvim'
+
 
 ### HISTORY MANAGEMENT ###
 export HISTTIMEFORMAT="[%F %T] "
@@ -23,8 +24,8 @@ alias ide="$HOME/dev/scripts/ide.sh"
 alias sc="source $HOME/.zshrc"
 alias mux="tmuxinator"
 alias config='/usr/bin/git --git-dir=/Users/sagebaram/.cfg/ --work-tree=/Users/sagebaram'
+alias g='git'
 
 source $HOME/.config/zsh/plugins.zsh
 source $HOME/.conda/zsh_settings.zsh
 source $HOME/.nvm/script.zsh
-

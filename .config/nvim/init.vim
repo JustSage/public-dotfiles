@@ -9,7 +9,7 @@ set nocompatible
 set relativenumber
 set hidden
 syntax enable
-set fileencodings=utf-8,sjis,euc-jp,latin
+set fileencodings=utf-8
 set encoding=utf-8
 set title
 set autoindent
@@ -17,7 +17,7 @@ set background=dark
 set nobackup
 set hlsearch
 set showcmd
-set cmdheight=1
+set cmdheight=2
 set laststatus=2
 set scrolloff=10
 set expandtab
@@ -67,7 +67,8 @@ autocmd InsertLeave * set nopaste
 
 " Disables automatic commenting on newline
 autocmd FileType * setlocal formatoptions-=c formatoptions-=r formatoptions-=o
-" Load back at the same line
+
+" Load back starting in the same line
 autocmd BufReadPost *
 \ if line("'\"") > 0 && line("'\"") <= line("$") |
 \ exe "normal! g'\"" |

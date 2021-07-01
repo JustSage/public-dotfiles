@@ -18,4 +18,4 @@ nnoremap q: <nop>
 nnoremap Q <nop>
 
 nnoremap <leader><leader> :call ToggleQuickfix()<cr>
-nnoremap <esc><esc> :silent! nohls<cr>
+nnoremap <space><space> :silent! nohls<cr>

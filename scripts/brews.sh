@@ -22,12 +22,14 @@ brew install exa
 brew install z
 # git integration
 brew install git
+# git repo manager
+brew install ghq
+# text based git interface
+brew install tig
 # terminal multiplexer & tmux template manager
 brew install tmux tmuxinator
 # fuzzy search everything
 brew install fzf
-# git repo manager
-brew install ghq
 # an interactive process viewer
 brew install htop
 # neovim, tree-sitter and luajit (head) - my editor of choice
@@ -37,5 +39,6 @@ curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 brew install node # base install of node
 # yarn is used for nvim plugin dependencies...
 brew install yarn
-
+# env variable per directory
+brew install direnv
 #################################################################

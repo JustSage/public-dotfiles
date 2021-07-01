@@ -1,18 +1,23 @@
 [init]
 	defaultBranch = master
-
 [user]
 	name = Sage Baram
 	email = sagebaram@gamil.com
+[github]
+  user = JustSage
+[hub]
+	protocol = ssh
+
 [core]
 	editor = nvim
 	excludesfile = $HOME/.gitignore_global
 	autocrlf = input
+
 [color]
 	ui = true
-[hub]
-	protocol = ssh
+
 [alias]
+  a = "!git status --short | fzf | awk '{print $2}' | xargs git add"
   d = diff
   co = checkout
   ci = commit
@@ -24,18 +29,21 @@
   ba = branch -a
   bm = branch --merged
   bn = branch --no-merged
-  df = "!git hist | peco | awk '{print $2}' | xargs -I {} git diff {}^ {}"
+  df = "!git hist | fzf | awk '{print $2}' | xargs -I {} git diff {}^ {}"
   hist = log --pretty=format:\"%Cgreen%h %Creset%cd %Cblue[%cn] %Creset%s%C(yellow)%d%C(reset)\" --graph --date=relative --decorate --all
   llog = log --graph --name-status --pretty=format:\"%C(red)%h %C(reset)(%cd) %C(green)%an %Creset%s %C(yellow)%d%Creset\" --date=relative
   open = "!hub browse"
-[github]
-  user = JustSage
+  find = "!f() { git log --pretty=format:\"%h %cd [%cn] %s%d\" --date=relative -S'pretty' -S\"$@\" | fzf | awk '{print $1}' | xargs -I {} git diff {}^ {}; }; f"
+   # edit conflicted file on merge
+  edit-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; vim `f`"
+  # add conflicted file on merge
+  add-unmerged = "!f() { git ls-files --unmerged | cut -f2 | sort -u ; }; git add `f`"
+
 [diff]
   tool = nvimdiff
 [difftool "nvimdiff"]
   cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
 [mergetool "nvim"]
   cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
-
 [ghq]
   root = ~/workspace/.git_repos

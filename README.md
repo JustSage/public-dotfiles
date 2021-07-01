@@ -1,4 +1,4 @@
-# Sage public-dotfiles
+# Sage's public-dotfiles
 
 These are my configurations & tools I use and run daily on MacOS.
 

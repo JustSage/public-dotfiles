@@ -1,3 +1,5 @@
+#!/bin/bash
+
 # brew is a package manager for macos. using brew i'm able to keep
 # my applications up to date, install them seamlessly with alfred
 # workflows or through the cli. it's a must tool for any mac user

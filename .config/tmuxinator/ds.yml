@@ -1,7 +1,7 @@
 # /Users/sagebaram/.config/tmuxinator/ds.yml
 
 name: ds
-root: ~/dev/projects/code/python/datascience
+root: ~/workspace/code/python/datascience
 
 # Project hooks
 
@@ -12,20 +12,20 @@ startup_window: editor
 startup_pane: 1
 
 windows:
-  - editor: 
+  - editor:
       layout: main-vertical
       panes:
         - editor:
-          - clear
-          - nvim .
+            - clear
+            - nvim .
   - server:
       layout: 8f74,128x35,0,0[128x25,0,0,13,128x9,0,26,15]
       panes:
         - package:
-          - clear
-          - 
+            - clear
+            -
         - lab:
-          - jupyter-lab
-  - logs: 
+            - jupyter-lab
+  - logs:
       - clear
       - tail -f log/development.log

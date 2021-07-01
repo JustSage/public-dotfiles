@@ -1,3 +1,5 @@
+!#/bin/bash
+ 
 # casks are essentially mac applications installed by brew
 # it's my preferred way to manage my applications and their
 # version updates.

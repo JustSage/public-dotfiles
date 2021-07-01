@@ -17,7 +17,7 @@ set background=dark
 set nobackup
 set hlsearch
 set showcmd
-set cmdheight=2
+set cmdheight=1
 set laststatus=2
 set scrolloff=10
 set expandtab
@@ -155,15 +155,7 @@ endif
 " ---------------------------------------------------------------------
 set exrc
 
-  " Trailing whitespace removal on save
-augroup TrailingWhitespace
-    autocmd FileType python, json
-    autocmd BufWritePre <buffer> :%s/\s\+$//e
-    command! W :w
-    command! Q :q
-  augroup END
-
-  " Toggle quickfix windown
+" Toggle quickfix windown
 function! ToggleQuickfix()
 for buffer in tabpagebuflist()
 if bufname(buffer) is# ''

@@ -26,9 +26,10 @@ alias ide="$HOME/dev/scripts/ide.sh"
 alias sc="source $ZDOTDIR/.zshrc"
 alias es="vim $ZDOTDIR/.zshrc"
 alias mux="tmuxinator"
-alias config='/usr/bin/git --git-dir=/Users/sagebaram/.cfg/ --work-tree=/Users/sagebaram'
+alias fig='/usr/bin/git --git-dir=/Users/sagebaram/.cfg/ --work-tree=/Users/sagebaram'
 alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
 
 source $ZDOTDIR/plugins.zsh
 source $CONDARC/zsh_settings.zsh
 source $NVM_DIR/script.zsh
+

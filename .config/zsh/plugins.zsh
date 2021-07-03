@@ -9,7 +9,7 @@ export NNN_PLUG='f:finder;o:fzopen;p:mocplay;d:diffs;t:nmount;v:imgview'
 . /usr/local/etc/profile.d/z.sh
 
 # fzf loader
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+[ -f $XDG_CONFIG_HOME/zsh/.fzf.zsh ] && source $XDG_CONFIG_HOME/zsh/.fzf.zsh 
 
 # direnv for env variables on root
 eval "$(direnv hook zsh)"

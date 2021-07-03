@@ -27,6 +27,8 @@ set noswapfile
 set splitbelow
 set splitright
 
+
+
 " Incremental substitution (neovim)
 if has('nvim')
   set inccommand=split
@@ -58,10 +60,15 @@ set wildignore+=*/node_modules/*
 " Read/Save file when switching buffers
 set autowrite
 set autoread
-
-" Undo file & dir
 set undofile
-set undodir=/tmp
+
+" Directory management
+set backupdir=$XDG_CACHE_HOME/vim/backup | call mkdir(&backupdir, 'p')
+set directory=$XDG_CACHE_HOME/vim/swap   | call mkdir(&directory, 'p')
+set undodir=$XDG_CACHE_HOME/vim/undo     | call mkdir(&undodir,   'p')
+
+if !has('nvim') | set viminfofile=$XDG_CACHE_HOME/vim/viminfo | endif
+
 " Turn off paste mode when leaving insert
 autocmd InsertLeave * set nopaste
 
@@ -166,4 +173,5 @@ endfor
 
 copen
 endfunction
+
 

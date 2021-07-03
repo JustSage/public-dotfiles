@@ -37,6 +37,8 @@ brew install --cask font-hack-nerd-font
 brew install --cask font-source-code-pro
 
 
+# automator for having a clean environment
+brew install --cask hazel
 # menubar manager
 brew install --cask bartender
 # battery performance

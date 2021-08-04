@@ -9,8 +9,10 @@ disabled = true
 [character]
 success_symbol = "[ﭲ](bold green)"     
 error_symbol = "[﵄](bold red)"    
+vicmd_symbol = "[](green)"
 
 # Change default conda prompt
 [conda]
-
 format = "[🅔 $environment ](green)"
+
+

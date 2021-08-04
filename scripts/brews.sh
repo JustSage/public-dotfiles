@@ -34,8 +34,8 @@ brew install tmux tmuxinator
 brew install fzf
 # an interactive process viewer
 brew install htop
-# neovim, tree-sitter and luajit (head) - my editor of choice
-brew install --HEAD neovim tree-sitter luajit
+# neovim - editor of my choice (no need for head past v0.5)
+brew install neovim
 # recommeneded way to install NVM - node version manager
 curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.38.0/install.sh | bash
 brew install node # base install of node

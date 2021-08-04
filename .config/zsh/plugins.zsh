@@ -2,10 +2,10 @@
 source /usr/local/opt/zsh-syntax-highlighting/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 source /usr/local/opt/zsh-autosuggestions/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# file browser
-export NNN_PLUG='f:finder;o:fzopen;p:mocplay;d:diffs;t:nmount;v:imgview'
+# vi mode
+source $ZDOTDIR/vi-mode.zsh
 
-# activating z shell script
+# activating z
 . /usr/local/etc/profile.d/z.sh
 
 # fzf loader
@@ -16,3 +16,5 @@ eval "$(direnv hook zsh)"
 
 # prompt
 eval "$(starship init zsh)"
+
+

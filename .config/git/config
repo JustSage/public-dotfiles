@@ -1,16 +1,19 @@
 [init]
 	defaultBranch = master
+
 [user]
 	name = Sage Baram
 	email = sagebaram@gamil.com
+
 [github]
   user = JustSage
+
 [hub]
 	protocol = ssh
 
 [core]
 	editor = nvim
-	excludesfile = /Users/sagebaram/.gitignore
+	excludesfile = $HOME/.gitignore
 	autocrlf = input
 
 [color]
@@ -41,10 +44,13 @@
 
 [diff]
   tool = nvimdiff
+
 [difftool "nvimdiff"]
   cmd = "nvim -d \"$LOCAL\" \"$REMOTE\""
+
 [mergetool "nvim"]
   cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
+
 [ghq]
-  root = ~/workspace/.git_repos
+  root = $WORKSPACE/.git_repos
 

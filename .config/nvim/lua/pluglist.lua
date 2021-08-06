@@ -212,5 +212,17 @@ return packer.startup(
             }
         }
 
+        use {
+            "andweeb/presence.nvim",
+            config = function()
+              require("presence"):setup({
+                enable_line_number = true,
+                main_image = "neovim",
+                neovim_image_text = "The editor of truth!"
+              })
+            end,
+            cmd = "Presence",
+          }
+
         end
     )

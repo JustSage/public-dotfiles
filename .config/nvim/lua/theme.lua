@@ -1,6 +1,6 @@
 -- list of themes:
--- theme: "gruvbox" , "javacafe" , "onedark" , "nord" , "tomorrow-night"
-vim.g.theme = "onedark"
+-- theme: "gruvchad" , "javacafe" , "onedark" , "norchad" , "tomorrow-night", "tokyonight", "mountaineer"
+vim.g.theme = "norchad"
 
 local present, base16 = pcall(require, "base16")
 

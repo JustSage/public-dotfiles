@@ -15,13 +15,4 @@ M.lspkind = function()
     end
 end
 
-
-M.lspsignature = function()
-    local present, lspsignature = pcall(require, "lsp_signature")
-    if present then
-        lspsignature.setup()
-    end
-end
-
-
 return M

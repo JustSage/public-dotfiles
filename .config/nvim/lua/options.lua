@@ -37,13 +37,14 @@ o.timeoutlen = 500
 o.updatetime = 250                        -- update interval for gitsigns.
 o.keywordprg = ':help'                    -- open help with 'K'.
 o.clipboard = "unnamedplus"               --  clipboard settings for my os (darwin)
+o.fillchars = {eob = " "}                 -- avoid trailing whitespace
+o.formatoptions:remove{"c","r","o"}
 
--- file paths, searching and ignores
-o.path = '**'
+o.path:append{'**'}                       -- file paths, searching and ignores
 o.wildignore:append{"*/node_modules/*", "*.pyc", "*.DS_Store","*.jpg", "*.bmp", "*.gif", "*.png", "*.jpeg","versions/*","cache/*"}
 o.suffixesadd:append{".js",".es",".jsx",".json",".css",".sass",".py",".md",".java",".c",".cpp"}
-o.dictionary = '/usr/share/dict/words'
 
+o.dictionary = '/usr/share/dict/words'
 bo.tabstop = 2
 bo.softtabstop = 2
 bo.shiftwidth = 2
@@ -52,7 +53,10 @@ bo.expandtab = true
 o.signcolumn = 'yes'
 wo.wrap = false
 
+-- providers
 g.python3_host_prog = '$PYENV_ROOT/shims/python'
+
+
 local disabled_built_ins = {
     "netrwPlugin",
     "netrwSettings",
@@ -73,16 +77,13 @@ local disabled_built_ins = {
     "matchit"
 }
 
--- avoid trailing whitespace
-cmd("let &fcs='eob: '")
+
 -- packer compile on plugins.lua change.
 cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
 -- turn off paste mode when leaving insert.
 cmd([[autocmd InsertLeave * set nopaste]])
 -- set spelling for git commits, org and markdown files.
 cmd([[augroup SetSpelling autocmd! autocmd FileType gitcommit,markdown,org setlocal spell spelllang=en_us]])
--- disables automatic commenting on newline.
-cmd([[autocmd VimEnter * setlocal formatoptions-=c formatoptions-=r formatoptions-=o]])
 -- open a file where where you left
 cmd([[au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]])
 -- turn off paste mode when leaving insert.

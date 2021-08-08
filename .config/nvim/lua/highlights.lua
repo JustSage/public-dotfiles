@@ -59,9 +59,10 @@ cmd "hi clear SignColumn"
 fg("cursorlinenr", white)
 
 -- git signs ---
-fg_bg("DiffAdd", nord_blue, "none")
-fg_bg("DiffChange", grey_fg, "none")
-fg_bg("DiffModified", nord_blue, "none")
+fg_bg("DiffAdd", green, "none")
+fg_bg("DiffChange", nord_blue, "none")
+fg_bg("DiffModified", black2, "none")
+fg_bg("DiffDelete", red, "none")
 
 -- NvimTree
 fg("NvimTreeFolderIcon", blue)
@@ -104,9 +105,12 @@ fg("LspDiagnosticsVirtualTextHint", purple)
 
 -- packer's floating window
 
-bg("NormalFloat", black2)
-bg("FloatBorder", black2)
-fg("FloatBorder", black2)
+bg("NormalFloat", "NONE")
+bg("FloatBorder", "NONE")
+fg("FloatBorder", blue)
+-- bg("NormalFloat", black2)
+-- bg("FloatBorder", black2)
+-- fg("FloatBorder", black2)
 
 -- set bg color for nvim
 bg("Normal", black)

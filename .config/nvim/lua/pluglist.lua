@@ -25,6 +25,15 @@ return packer.startup(
             end
         }
 
+        -- file managing , picker etc
+        use {
+            "kyazdani42/nvim-tree.lua",
+            cmd = "NvimTreeToggle",
+            config = function()
+                require "plugins.nvimtree"
+            end
+        }
+
         use {
             'hoob3rt/lualine.nvim',
             after = "nvim-base16.lua",
@@ -32,17 +41,6 @@ return packer.startup(
               require "plugins.lualine"
             end
         }
-
-        -- file managing , picker etc
-        use {
-            "kyazdani42/nvim-tree.lua",
-            requires = "kyazdani42/nvim-web-devicons",
-            cmd = "NvimTreeToggle",
-            config = function()
-                require "plugins.nvimtree"
-            end
-        }
-
 
         use {
             "norcalli/nvim-colorizer.lua",
@@ -67,6 +65,19 @@ return packer.startup(
                 require "plugins.treesitter"
             end
         }
+
+        use {
+            "andweeb/presence.nvim",
+            event = "TextChanged",
+            config = function()
+              require("presence"):setup({
+                enable_line_number = true,
+                main_image = "file",
+                neovim_image_text = "The gods editor",
+            })
+            end
+        }
+
 
         -- Lsp and Completions
         use {
@@ -116,8 +127,9 @@ return packer.startup(
 
         use {
             "ray-x/lsp_signature.nvim",
+            after = "nvim-lspconfig",
             config = function()
-                require("plugins.others").lspsignature()
+                require "plugins.signature"
             end
         }
 
@@ -211,18 +223,6 @@ return packer.startup(
                 "StartupTime"
             }
         }
-
-        use {
-            "andweeb/presence.nvim",
-            config = function()
-              require("presence"):setup({
-                enable_line_number = true,
-                main_image = "neovim",
-                neovim_image_text = "The editor of truth!"
-              })
-            end,
-            cmd = "Presence",
-          }
 
         end
     )

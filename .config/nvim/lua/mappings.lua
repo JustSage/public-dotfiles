@@ -46,6 +46,11 @@ end
 
 
 
+map("n", "<Leader>a", ":argadd <c-r>=fnameescape(expand('%:p:h'))<cr>/*<c-d>", opt)
+vim.cmd([[cnoremap <expr> / wildmenumode() ? "\<C-Y>" : "/"]])
+vim.cmd([[cnoremap <expr> * getcmdline() =~ '.*\*\*$' ? '/*' : '*']])
+vim.cmd([[cnoreabbr <expr> %% fnameescape(expand('%:p'))]])
+
 map("n", "Q", "<Nop>", opt)
 
 map("n", "<Up>", "<Nop>", opt)
@@ -64,10 +69,10 @@ map("i", "<Left>", "<Nop>", opt)
 map("i", "<Right>", "<Nop>", opt)
 
 map("n", "<C-q>", "<Cmd> lua require'utils'.toggle_quickfix()<CR>", opt)
-map("n", "<C-k>", "<Cmd> cnext<CR>zz", opt)
-map("n", "<C-j>", "<Cmd> cprev<CR>zz", opt)
-map("n", "<C-h>", "<Cmd> lnext<CR>zz", opt)
-map("n", "<C-l>", "<Cmd> lprev<CR>zz", opt)
+map("n", "<C-K>", "<Cmd> cnext<CR>zz", opt)
+map("n", "<C-J>", "<Cmd> cprev<CR>zz", opt)
+map("n", "<C-H>", "<Cmd> lnext<CR>zz", opt)
+map("n", "<C-L>", "<Cmd> lprev<CR>zz", opt)
 
 -- better yank line
 map("n", "Y", "y$", opt)
@@ -135,3 +140,6 @@ map("n", "M-h", [[<Cmd>lua require("tmux").resize_left()<CR>]], opt)
 map("n", "M-j", [[<Cmd>lua require("tmux").resize_bottom()<CR>]], opt)
 map("n", "M-k", [[<Cmd>lua require("tmux").resize_top()<CR>]], opt)
 map("n", "M-l", [[<Cmd>lua require("tmux").resize_right()<CR>]], opt)
+
+map("n", "]t", "<Plug>(ultest-next-fail)", opt)
+map("n", "[t", "<Plug>(ultest-prev-fail)", opt)

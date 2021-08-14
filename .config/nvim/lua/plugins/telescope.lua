@@ -71,10 +71,12 @@ telescope.setup(
     }
 )
 
+require("telescope").load_extension("theme_switcher")
+
 local M = {}
 M.search_dotfiles = function()
     require("telescope.builtin").find_files({
-        prompt_title = "< VimRC >",
+        prompt_title = "< Dotfiles >",
         cwd = vim.env.DOTFILES,
         hidden = true,
     })
@@ -82,7 +84,7 @@ end
 
 M.grep_string_prompt = function()
     require("telescope.builtin").grep_string({
-        search = vim.fn.input("Grep for > ")
+        search = vim.fn.input("Grep for > "),
     })
 end
 

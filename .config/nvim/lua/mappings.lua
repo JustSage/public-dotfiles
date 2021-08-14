@@ -9,43 +9,6 @@ end
 
 local opt = {}
 
-local t = function(str)
-    return vim.api.nvim_replace_termcodes(str, true, true, true)
-end
-
-local check_back_space = function()
-    local col = vim.fn.col(".") - 1
-    if col == 0 or vim.fn.getline("."):sub(col, col):match("%s") then
-        return true
-    else
-        return false
-    end
-end
-
-_G.tab_complete = function()
-    if vim.fn.pumvisible() == 1 then
-        return t "<C-n>"
-    elseif require("luasnip").expand_or_jumpable() then
-        return t "<cmd>lua require'luasnip'.jump(1)<Cr>"
-    elseif check_back_space() then
-        return t "<Tab>"
-    else
-        return vim.fn["compe#complete"]()
-    end
-end
-
-_G.s_tab_complete = function()
-    if vim.fn.pumvisible() == 1 then
-        return t "<C-p>"
-    elseif require("luasnip").jumpable(-1) then
-        return t "<cmd>lua require'luasnip'.jump(-1)<CR>"
-    else
-        return t "<S-Tab>"
-    end
-end
-
-
-
 map("n", "<Leader>a", ":argadd <c-r>=fnameescape(expand('%:p:h'))<cr>/*<c-d>", opt)
 vim.cmd([[cnoremap <expr> / wildmenumode() ? "\<C-Y>" : "/"]])
 vim.cmd([[cnoremap <expr> * getcmdline() =~ '.*\*\*$' ? '/*' : '*']])
@@ -68,7 +31,7 @@ map("i", "<Down>", "<Nop>", opt)
 map("i", "<Left>", "<Nop>", opt)
 map("i", "<Right>", "<Nop>", opt)
 
-map("n", "<C-q>", "<Cmd> lua require'utils'.toggle_quickfix()<CR>", opt)
+map("n", "<C-q>", "<Cmd> lua require'functions'.toggle_quickfix()<CR>", opt)
 map("n", "<C-K>", "<Cmd> cnext<CR>zz", opt)
 map("n", "<C-J>", "<Cmd> cprev<CR>zz", opt)
 map("n", "<C-H>", "<Cmd> lnext<CR>zz", opt)
@@ -107,13 +70,6 @@ map("n", "<Leader>n", [[<Cmd> NvimTreeToggle<CR>]], opt)    -- tree view
 -- use ESC to turn off search highlighting
 map("n", "<Esc>", ":noh<CR>", opt)
 
--- compe mappings
-map("i", "<Tab>", "v:lua.tab_complete()",{expr = true})
-map("s", "<Tab>", "v:lua.tab_complete()",{expr = true})
-map("i", "<S-Tab>", "v:lua.s_tab_complete()",{expr = true})
-map("s", "<S-Tab>", "v:lua.s_tab_complete()",{expr = true})
-map("i", "<CR>", "v:lua.completions()",{expr = true})
-
 -- git bindings
 map("n", "<Leader>gs", ":Git<CR>", opt)
 map("n", "<Leader>gf", ":diffget //2<CR>", opt)
@@ -122,19 +78,20 @@ map("n", "<Leader>gb", ":Git blame<CR>", opt)
 
 -- telescope mappings
 map("n", "<Leader>fw", ":Telescope live_grep<CR>", opt)
-map("n", "<Leader>cm", ":Telescope git_commits <CR>", opt)
+map("n", "<Leader>gc", ":Telescope git_commits <CR>", opt)
 map("n", "<Leader>ff", ":Telescope find_files <CR>", opt)
 map("n", "<Leader>fb", ":Telescope buffers<CR>", opt)
 map("n", "<Leader>fh", ":Telescope help_tags<CR>", opt)
 map("n", "<Leader>fw", ":Telescope grep_string<CR>", opt)
+map("n", "<Leader>th", ":Telescope theme_switcher<CR>", opt)
 map('n', '<Leader>rc', "<Cmd>lua require('plugins.telescope').search_dotfiles()<CR>",  opt)
-map("n", "<Leader>ps","<Cmd>lua require('plugins/telescope').grep_string_prompt()<CR>", opt)
+map("n", "<Leader>ps", "<Cmd>lua require('plugins.telescope').grep_string_prompt()<CR>", opt)
 map("n", "<C-g><C-g>", ":Telescope git_files <CR>", opt)
 
-map("n", "C-h", [[<Cmd>lua require("tmux").move_left()<CR>]], opt)
-map("n", "C-j", [[<Cmd>lua require("tmux").move_bottom()<CR>]], opt)
-map("n", "C-k", [[<Cmd>lua require("tmux").move_top()<CR>]], opt)
-map("n", "C-l", [[<Cmd>lua require("tmux").move_right()<CR>]], opt)
+map("n", "<C-h>", [[<Cmd>lua require("tmux").move_left()<CR>]], opt)
+map("n", "<C-j>", [[<Cmd>lua require("tmux").move_bottom()<CR>]], opt)
+map("n", "<C-k>", [[<Cmd>lua require("tmux").move_top()<CR>]], opt)
+map("n", "<C-l>", [[<Cmd>lua require("tmux").move_right()<CR>]], opt)
 
 map("n", "M-h", [[<Cmd>lua require("tmux").resize_left()<CR>]], opt)
 map("n", "M-j", [[<Cmd>lua require("tmux").resize_bottom()<CR>]], opt)

@@ -35,10 +35,12 @@ return packer.startup(
         }
 
         use {
-            'hoob3rt/lualine.nvim',
+            "glepnir/galaxyline.nvim",
+            -- 'shadmansaleh/lualine.nvim', -- active fork
+            -- 'hoob3rt/lualine.nvim', -- main fork
             after = "nvim-base16.lua",
             config = function()
-              require "plugins.lualine"
+              require "plugins/statusline"
             end
         }
 
@@ -68,7 +70,7 @@ return packer.startup(
 
         use {
             "andweeb/presence.nvim",
-            event = "TextChanged",
+            event = "BufRead",
             config = function()
               require("presence"):setup({
                 enable_line_number = true,
@@ -106,7 +108,7 @@ return packer.startup(
             "hrsh7th/nvim-compe",
             event = "InsertEnter",
             config = function()
-                require "plugins.compe"
+                require "plugins/compe"
             end,
             wants = "LuaSnip",
             requires = {
@@ -147,23 +149,27 @@ return packer.startup(
         use {
             "nvim-telescope/telescope.nvim",
             cmd = "Telescope",
+            requires = {
+                { "nvim-telescope/telescope-fzf-native.nvim", run = "make" },
+            },
             config = function()
                 require "plugins.telescope"
             end
         }
 
-       use {
-            "nvim-telescope/telescope-fzf-native.nvim",
-            run = "make",
-            cmd = "Telescope"
-        }
-
         -- formatter
+        -- use {
+        --     "sbdchd/neoformat",
+        --     cmd = {
+        --         "Neoformat"
+        --     }
+        -- }
+        --
         use {
-            "sbdchd/neoformat",
-            cmd = {
-                "Neoformat"
-            }
+            "mhartington/formatter.nvim",
+            config = function()
+                require "plugins.formatter"
+            end
         }
 
 

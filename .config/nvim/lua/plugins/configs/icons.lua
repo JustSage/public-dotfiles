@@ -3,8 +3,7 @@ if not present then
     return
 end
 
-local global_theme = "themes/" .. vim.g.theme
-local colors = require(global_theme)
+local colors = require("colors").get()
 
 icons.setup {
     override = {

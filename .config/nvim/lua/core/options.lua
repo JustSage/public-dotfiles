@@ -78,6 +78,9 @@ local disabled_built_ins = {
     "matchit"
 }
 
+for _, plugin in pairs(disabled_built_ins) do
+    vim.g["loaded_" .. plugin] = 1
+end
 
 -- packer compile on plugins.lua change.
 cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
@@ -92,6 +95,6 @@ cmd([[autocmd InsertLeave * set nopaste]])
 -- file specific tabbing.
 cmd([[autocmd FileType python,lua,java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4]])
 
-for _, plugin in pairs(disabled_built_ins) do
-    vim.g["loaded_" .. plugin] = 1
-end
+cmd [[ au TermOpen term://* setfiletype terminal ]]
+
+

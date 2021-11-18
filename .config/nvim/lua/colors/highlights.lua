@@ -1,7 +1,8 @@
+-- local override = require("core.utils").load_config().ui.hl_override
+
 local cmd = vim.cmd
 
-local global_theme = "themes/" .. vim.g.theme
-local colors = require(global_theme)
+local colors = require("colors").get()
 
 local white = colors.white
 local darker_black = colors.darker_black

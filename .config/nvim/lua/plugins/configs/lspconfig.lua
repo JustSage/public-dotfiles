@@ -133,31 +133,31 @@ end
 
 -- specific language server settings
 -- c/c++ lsp
-lspconfig.ccls.setup {
-   init_options = {
-       compilationDatabaseDirectory = "build",
-       index = {
-           threads = 0
-       },
-       clang = {
-           excludeArgs = {"-frounding-math"}
-       }
-   }
-}
+-- lspconfig.ccls.setup {
+--    init_options = {
+--        compilationDatabaseDirectory = "build",
+--        index = {
+--            threads = 0
+--        },
+--        clang = {
+--            excludeArgs = {"-frounding-math"}
+--        }
+--    }
+-- }
 
-local configs = require'lspconfig/configs'
+-- local configs = require'lspconfig/configs'
 
-if not lspconfig.emmet_ls then
-  configs.emmet_ls = {
-    default_config = {
-      cmd = {'emmet-ls', '--stdio'};
-      filetypes = {'html', 'css'};
-      root_dir = lspconfig.util.root_pattern(".git", vim.fn.getcwd())
-    };
-  }
-end
+-- if not lspconfig.emmet_ls then
+--   configs.emmet_ls = {
+--     default_config = {
+--       cmd = {'emmet-ls', '--stdio'};
+--       filetypes = {'html', 'css'};
+--       root_dir = lspconfig.util.root_pattern(".git", vim.fn.getcwd())
+--     };
+--   }
+-- end
 
-lspconfig.emmet_ls.setup{
-    on_attach = on_attach;
-    capabilities = capabilities;
-}
+-- lspconfig.emmet_ls.setup{
+--     on_attach = on_attach;
+--     capabilities = capabilities;
+-- }

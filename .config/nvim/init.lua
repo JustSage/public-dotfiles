@@ -1,8 +1,5 @@
-local modules = {
-    "options",
-    "mappings"
-}
+local pass,err = pcall(require, "core")
 
-for i = 1, #modules, 1 do
-     pcall(require, modules[i])
+if not pass then
+     error("Error loading core configuration" .. "\n\n" .. err)
 end

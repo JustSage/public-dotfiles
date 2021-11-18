@@ -52,5 +52,6 @@
   cmd = nvim -f -c \"Gdiffsplit!\" \"$MERGED\"
 
 [ghq]
-  root = $WORKSPACE/.git_repos
+  vcs = git
+  root = ~/ghq
 

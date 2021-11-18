@@ -57,11 +57,7 @@ wo.wrap = false
 g.python3_host_prog = '$PYENV_ROOT/shims/python'
 g.python2_host_prog = '/usr/bin/python2'
 
-
 local disabled_built_ins = {
-    "netrwPlugin",
-    "netrwSettings",
-    "netrwFileHandlers",
     "gzip",
     "zip",
     "zipPlugin",

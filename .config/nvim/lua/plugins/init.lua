@@ -169,7 +169,7 @@ return packer.startup(
                 {"nvim-telescope/telescope-ghq.nvim"}
             },
             config = function()
-                require "plugins.configs._telescope"
+                require "plugins.configs.telescope"
             end
         }
 

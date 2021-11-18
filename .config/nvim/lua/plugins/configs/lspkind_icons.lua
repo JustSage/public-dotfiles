@@ -13,7 +13,7 @@ M.icons = {
    Property = "ﰠ",
    Unit = "U",
    Value = "",
-   Enum = "",
+   Enum = "了",
    Keyword = "",
    Snippet = "",
    Color = "",
@@ -22,10 +22,10 @@ M.icons = {
    Folder = "",
    EnumMember = "",
    Constant = "",
-   Struct = "S",
+   Struct = "",
    Event = "",
    Operator = "",
    TypeParameter = "",
 }
-return M
 
+return M

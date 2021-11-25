@@ -74,16 +74,24 @@ telescope.setup(
 require("telescope").load_extension("themes")
 require("telescope").load_extension("ghq")
 
+
 local M = {}
-
 M.search_dotfiles = function()
-    local opts = {prompt_title = "< Dotfiles >", cwd = vim.env.DOTFILES, hidden = true}
-    require("telescope.builtin").find_files(opts)
+    require("telescope.builtin").find_files({
+        cwd = "~/.config/nvim/",
+        prompt_title = '< Dotfiles >',
+        hidden = true,
+    })
 end
 
-M.grep_string_prompt = function()
-    local opts = {search = vim.fn.input("Grep for > ")}
-    require("telescope.builtin").grep_string(opts)
-end
+-- M.search_dotfiles = function()
+--     local opts = {prompt_title = "< Dotfiles >", cwd = vim.env.DOTFILES, hidden = true}
+--     require("telescope.builtin").find_files(opts)
+-- end
+
+-- M.grep_string_prompt = function()
+--     local opts = {search = vim.fn.input("Grep for > ")}
+--     require("telescope.builtin").grep_string(opts)
+-- end
 
 return M

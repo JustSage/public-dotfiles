@@ -32,6 +32,7 @@ cmp.setup {
       end,
    },
    mapping = {
+      ["C-y"] = cmp.mapping(function(fallback) fallback() end), -- emmet support
       ["<C-p>"] = cmp.mapping.select_prev_item(),
       ["<C-n>"] = cmp.mapping.select_next_item(),
       ["<C-d>"] = cmp.mapping.scroll_docs(-4),

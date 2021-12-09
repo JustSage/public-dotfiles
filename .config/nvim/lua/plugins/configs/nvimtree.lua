@@ -95,9 +95,8 @@ nvimtree.setup {
     filters = {
         dotfiles = false
     },
-    disable_netrw = true,
+    disable_netrw = false,
     hijack_netrw = true,
-    ignore_ft_on_setup = {"dashboard"},
     auto_close = true,
     open_on_tab = false,
     hijack_cursor = true,

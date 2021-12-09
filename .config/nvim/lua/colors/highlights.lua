@@ -87,31 +87,18 @@ fg("TelescopePromptBorder", green)
 fg("TelescopeResultsBorder", grey)
 fg("TelescopePreviewBorder", grey)
 
-
 -- LspDiagnostics ---
 
--- error / warnings
-fg("LspDiagnosticsSignError", red)
-fg("LspDiagnosticsVirtualTextError", red)
-fg("LspDiagnosticsSignWarning", yellow)
-fg("LspDiagnosticsVirtualTextWarning", yellow)
-
--- info
-fg("LspDiagnosticsSignInformation", green)
-fg("LspDiagnosticsVirtualTextInformation", green)
-
--- hint
-fg("LspDiagnosticsSignHint", purple)
-fg("LspDiagnosticsVirtualTextHint", purple)
+fg("DiagnosticHint", purple)
+fg("DiagnosticError", red)
+fg("DiagnosticWarn", yellow)
+fg("DiagnosticInformation", green)
 
 -- packer's floating window
 
 bg("NormalFloat", "NONE")
 bg("FloatBorder", "NONE")
 fg("FloatBorder", blue)
--- bg("NormalFloat", black2)
--- bg("FloatBorder", black2)
--- fg("FloatBorder", black2)
 
 -- set bg color for nvim
 bg("Normal", black)

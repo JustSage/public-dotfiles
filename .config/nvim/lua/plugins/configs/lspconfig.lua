@@ -1,8 +1,8 @@
-local present1, lspconfig = pcall(require, "lspconfig")
-local present2, lspinstall = pcall(require, "lspinstall")
-if not (present1 or present2) then
+local present,lsp_installer = pcall(require,"nvim-lsp-installer")
+if not present then
     return
 end
+
 
 local function on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
@@ -13,85 +13,33 @@ local function on_attach(client, bufnr)
         vim.api.nvim_buf_set_keymap(bufnr, ...)
     end
 
-    -- Mappings.
+    buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+    buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+    buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+    buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+    buf_set_keymap("n", "gk", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+    buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
+    buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
+    buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
+    buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
+    buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+    buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+    buf_set_keymap("n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+    buf_set_keymap("n", "ge", "<cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
+    buf_set_keymap("n", "[d", "<cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
+    buf_set_keymap("n", "]d", "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
+    buf_set_keymap("n", "<space>q", "<cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
+    buf_set_keymap("n", "<space>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
+    buf_set_keymap("v", "<space>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
 
-
-    buf_set_keymap("n", "gD", "<Cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    buf_set_keymap("n", "gd", "<Cmd>lua vim.lsp.buf.definition()<CR>", opts)
-    buf_set_keymap("n", "gr", "<Cmd>lua vim.lsp.buf.references()<CR>", opts)
-    buf_set_keymap("n", "gi", "<Cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    buf_set_keymap("n", "[d", "<Cmd>lua vim.lsp.diagnostic.goto_prev()<CR>", opts)
-    buf_set_keymap("n", "]d", "<Cmd>lua vim.lsp.diagnostic.goto_next()<CR>", opts)
-    buf_set_keymap("n", "K", "<Cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap("n", "<Space>e", "<Cmd>lua vim.lsp.diagnostic.show_line_diagnostics()<CR>", opts)
-    buf_set_keymap("n", "<Space>q", "<Cmd>lua vim.lsp.diagnostic.set_loclist()<CR>", opts)
-    buf_set_keymap("n", "<Space>wa", "<Cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-    buf_set_keymap("n", "<Space>wr", "<Cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-    buf_set_keymap("n", "<Space>wl", "<Cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-    buf_set_keymap("n", "<Space>D", "<Cmd>lua vim.lsp.buf.type_defiition()<CR>", opts)
-    buf_set_keymap("n", "<Space>rn", "<Cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    buf_set_keymap("i", "<C-k>", "<Cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-
-    -- Set some keybinds conditional on server capabilities
+    -- Format on save
     if client.resolved_capabilities.document_formatting then
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    elseif client.resolved_capabilities.document_range_formatting then
-        buf_set_keymap("n", "<space>f", "<cmd>lua vim.lsp.buf.range_formatting()<CR>", opts)
+        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
     end
 end
-
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 capabilities.textDocument.completion.completionItem.snippetSupport = true
-
--- lspInstall + lspconfig stuff
-
-local function setup_servers()
-    lspinstall.setup()
-    local servers = lspinstall.installed_servers()
-
-    for _, lang in pairs(servers) do
-        if lang ~= "lua" then
-            lspconfig[lang].setup {
-                on_attach = on_attach,
-                capabilities = capabilities,
-                root_dir = vim.loop.cwd
-            }
-        elseif lang == "lua" then
-            lspconfig[lang].setup {
-                on_attach = on_attach,
-                capabilities = capabilities,
-                root_dir = vim.loop.cwd,
-                settings = {
-                    Lua = {
-                        diagnostics = {
-                            globals = {"vim"}
-                        },
-                        workspace = {
-                            library = {
-                                [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                                [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-                            },
-                            maxPreload = 100000,
-                            preloadFileSize = 10000
-                        },
-                        telemetry = {
-                            enable = false
-                        }
-                    }
-                }
-            }
-        end
-    end
-end
-
-setup_servers()
-
--- Automatically reload after `:LspInstall <server>` so we don't have to restart neovim
-lspinstall.post_install_hook = function()
-    setup_servers() -- reload installed servers
-    vim.cmd("bufdo e") -- triggers FileType autocmd that starts the server
-end
 
 -- replace the default lsp diagnostic symbols
 function LspSymbol(name, icon)
@@ -120,7 +68,7 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] =
 )
 
 -- suppress error messages from lang servers
-vim.notify = function(msg, log_level, _opts)
+vim.notify = function(msg, log_level)
     if msg:match("exit code") then
         return
     end
@@ -131,33 +79,40 @@ vim.notify = function(msg, log_level, _opts)
     end
 end
 
--- specific language server settings
--- c/c++ lsp
--- lspconfig.ccls.setup {
---    init_options = {
---        compilationDatabaseDirectory = "build",
---        index = {
---            threads = 0
---        },
---        clang = {
---            excludeArgs = {"-frounding-math"}
---        }
---    }
--- }
 
--- local configs = require'lspconfig/configs'
+lsp_installer.on_server_ready(function(server)
+    local opts = {}
 
--- if not lspconfig.emmet_ls then
---   configs.emmet_ls = {
---     default_config = {
---       cmd = {'emmet-ls', '--stdio'};
---       filetypes = {'html', 'css'};
---       root_dir = lspconfig.util.root_pattern(".git", vim.fn.getcwd())
---     };
---   }
--- end
-
--- lspconfig.emmet_ls.setup{
---     on_attach = on_attach;
---     capabilities = capabilities;
--- }
+    if server.name == "sumneko_lua" then
+        opts = {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            root_dir = vim.loop.cwd,
+            settings = {
+                Lua = {
+                    diagnostics = {
+                        globals = {"vim"}
+                    },
+                    workspace = {
+                        library = {
+                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
+                        },
+                        maxPreload = 100000,
+                        preloadFileSize = 10000
+                    },
+                    telemetry = {
+                        enable = false
+                    },
+                }
+            }
+        }
+    else
+        opts = {
+            on_attach = on_attach,
+            capabilities = capabilities,
+            root_dir = vim.loop.cwd
+        }
+    end
+    server:setup(opts)
+end)

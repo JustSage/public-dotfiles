@@ -27,18 +27,20 @@ o.inccommand = 'split'	                  -- incremental subtitution
 bo.autoindent = true                      -- figures out how to indent.
 bo.smartindent = true                     -- figures out when to indent.
 o.splitbelow = true                       -- horizontal splits below.
-o.splitright = true		                    -- veritcal splits to the right.
-o.showcmd = true		                      -- shows command on the right side of the command prompt.
-o.cmdheight = 1		                        -- command prompt height.
-o.scrolloff = 10		                      -- keep 'n' lines visible when scrolling.
+o.splitright = true		                  -- veritcal splits to the right.
+o.showcmd = true		                  -- shows command on the right side of the command prompt.
+o.cmdheight = 1		                      -- command prompt height.
+o.scrolloff = 10		                  -- keep 'n' lines visible when scrolling.
 o.lazyredraw = true                       -- good performance settings.
 o.diffopt = 'vertical'                    -- opens git diff in vertical split.
 o.timeoutlen = 500
 o.updatetime = 250                        -- update interval for gitsigns.
 o.keywordprg = ':help'                    -- open help with 'K'.
-o.clipboard = "unnamedplus"               --  clipboard settings for my os (darwin)
+o.clipboard = "unnamedplus"               -- clipboard settings for my os (darwin)
 o.fillchars = {eob = " "}                 -- avoid trailing whitespace
-o.formatoptions:remove{"c","r","o"}
+
+cmd([[set formatoptions-=cro]])           -- disable comment continouation in next line
+
 
 o.path:append{'**'}                       -- file paths, searching and ignores
 o.wildignore:append{"*/node_modules/*", "*.pyc", "*.DS_Store","*.jpg", "*.bmp", "*.gif", "*.png", "*.jpeg","versions/*","cache/*"}
@@ -92,5 +94,3 @@ cmd([[autocmd InsertLeave * set nopaste]])
 cmd([[autocmd FileType python,lua,java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4]])
 
 cmd [[ au TermOpen term://* setfiletype terminal ]]
-
-

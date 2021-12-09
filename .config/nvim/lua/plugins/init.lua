@@ -74,25 +74,20 @@ return packer.startup(
             "andweeb/presence.nvim",
             event = "BufRead",
             config = function()
-                require("presence"):setup(
-                    {
-                        enable_line_number = true,
-                        main_image = "file",
-                        neovim_image_text = "Don't memorize what you can search for - Albert Einstein"
-                    }
-                )
+                require("plugins.configs.others").presence()
             end
         }
 
         -- Lsp and Completions
         use {
-            "kabouzeid/nvim-lspinstall",
+            "williamboman/nvim-lsp-installer",
+            cmd = "do User LspAttachBuffers",
             event = "BufEnter"
         }
 
         use {
             "neovim/nvim-lspconfig",
-            after = "nvim-lspinstall",
+            after = "nvim-lsp-installer",
             config = function()
                 require "plugins.configs.lspconfig"
             end
@@ -107,7 +102,7 @@ return packer.startup(
             "hrsh7th/nvim-cmp",
             after = "friendly-snippets",
             config = function()
-                require("plugins.configs.cmp")
+                require "plugins.configs.cmp"
             end
         }
 
@@ -116,7 +111,7 @@ return packer.startup(
             wants = "friendly-snippets",
             after = "nvim-cmp",
             config = function()
-                require("plugins.configs.luasnip")
+                require "plugins.configs.luasnip"
             end
         }
 
@@ -159,9 +154,6 @@ return packer.startup(
         }
 
         use {
-            "nvim-lua/popup.nvim"
-        }
-        use {
             "nvim-telescope/telescope.nvim",
             cmd = "Telescope",
             requires = {
@@ -173,20 +165,24 @@ return packer.startup(
             end
         }
 
-        -- formatter
+        -- org mode
         use {
-            "sbdchd/neoformat",
-            cmd = {
-                "Neoformat"
-            }
-        }
-        --
-        use {
-            "mhartington/formatter.nvim",
+            'kristijanhusak/orgmode.nvim',
+            after = 'nvim-treesitter',
             config = function()
-                require "plugins.configs.formatter"
+                require('orgmode').setup{}
             end
         }
+
+        -- formatter
+        -- use {
+        --     "jose-elias-alvarez/null-ls.nvim",
+        --     after = "nvim-lspconfig",
+        --     config = function()
+        --         require("plugins.configs.null-ls").setup()
+        --     end,
+        -- }
+
 
         -- git stuff
         use {
@@ -233,10 +229,25 @@ return packer.startup(
             run = [[sh -c 'cd app && yarn install']]
         }
 
+        -- use {
+        --     "catppuccin/nvim",
+        --     config = function()
+        --         vim.cmd[[colorscheme catppuccin]]
+        --     end
+        -- }
+
         use {"tpope/vim-fugitive"}
         use {"tpope/vim-rhubarb"}
-        use {"tpope/vim-commentary"}
-        use {"tpope/vim-surround"}
+        use {"tpope/vim-surround"} --
+        use {"lepture/vim-jinja"}  -- flask syntax hilighting
+        use {"mattn/emmet-vim"}
+
+        use {
+            "numToStr/Comment.nvim",
+            config = function()
+                require "plugins.configs.comment"
+            end
+        }
 
         use {
             "dstein64/vim-startuptime",
@@ -244,5 +255,6 @@ return packer.startup(
                 "StartupTime"
             }
         }
+
     end
 )

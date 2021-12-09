@@ -15,4 +15,4 @@ alias es="vim $ZDOTDIR/.zshrc"
 alias mux="tmuxinator"
 alias fig='/usr/bin/git --git-dir=$HOME/.cfg/ --work-tree=$HOME'
 alias yarn='yarn --use-yarnrc "$XDG_CONFIG_HOME/yarn/config"'
-
+alias createnv='python3 -m venv'

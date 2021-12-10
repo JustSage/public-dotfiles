@@ -30,7 +30,7 @@ These are my configurations & tools I run daily on MacOS.
   - 1Password integration.
   - System Commands.
 
-  This is an essential productivity tool I have to install right away.
+  This is an essential productivity tool I have to install right away on a mac.
 
 
 ---
@@ -56,7 +56,7 @@ These are my configurations & tools I run daily on MacOS.
          ~/.local/share/nvim/site/pack/packer/start/packer.nvim
         ```
     * [autopairs](https://github.com/windwp/nvim-autopairs) - pair brackets automatically.<br>
-    * [matchup](https://github.com/andymass/vim-matchup) - easy traversal between opening/closing tags of any kind with %.<br>
+    * [matchup](https://github.com/andymass/vim-matchup) - easy traversal between opening/closing tags of any kind with `%`.<br>
     * [cmp.nvim](https://github.com/hrsh7th/nvim-cmp) - completion engine of choice.<br>
     * [gitsigns](https://github.com/lewis6991/gitsigns.nvim) - shows git changes in gutter.<br>
     * [nvim-lspconfig](https://github.com/neovim/nvim-lspconfig) - for language server protocols.<br>
@@ -66,7 +66,7 @@ These are my configurations & tools I run daily on MacOS.
     * [Luasnip](https://github.com/L3MON4D3/LuaSnip) - snippet engine.<br>
     * [nvim-tree](https://github.com/kyazdani42/nvim-tree.lua) - file explorer in tree view.<br>
     * [org.nvim](https://github.com/nvim-orgmode/orgmode) - orgmode support in neovim.<br>
-    * [presence.nvim](https://github.com/andweeb/presence.nvim) - discord neovim presence plugin (cause all should when I'm programming... right?).<br>
+    * [presence.nvim](https://github.com/andweeb/presence.nvim) - discord neovim presence plugin (cause all should know when I'm programming... right?).<br>
     * [nvim-colorizer](https://github.com/norcalli/nvim-colorizer.lua) - provides color highlighting for hex/rgb in text.<br>
     * [galaxyline.nvim](https://github.com/glepnir/galaxyline.nvim) - status line of choice. <u>*no longer maintained*</u>.<br>
     * [telescope.nvim](https://github.com/nvim-telescope) - fuzzy finder over lists. super useful, similar to fzf but far more extensible.<br>
@@ -79,12 +79,12 @@ These are my configurations & tools I run daily on MacOS.
     * [fugitive](https://github.com/tpope/vim-fugitive) - git integration with vim.
     * [rhubarb](https://github.com/tpope/vim-rhubarb) - github integration with vim.
     * [surround](https://github.com/tpope/vim-surround) - manipulating opening/closing brackets/parens etc.
-    * [repeat](https://github.com/tpope/vim-repeat) - repeating `.` motion.
+    * [repeat](https://github.com/tpope/vim-repeat) - repeating `.` motion for surround.
     * [markdown-preview](https://github.com/iamcco/markdown-preview.nvim) - markdown live-server.<br>
 
 
   **NOTICE:**<br>
-  Check out the provided links before mindlessly using the configurations for further information and any dependencies it may require.
+  Check out the provided links before mindlessly using the configurations for further information and any necessary dependencies it may require.
   
   If you are a beginner to Vim I strongly recommend using the built in tutor to get familiar with vim concepts.<br>
   When in nvim use `:tutor`.

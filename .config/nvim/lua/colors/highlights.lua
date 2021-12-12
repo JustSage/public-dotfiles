@@ -1,5 +1,3 @@
--- local override = require("core.utils").load_config().ui.hl_override
-
 local cmd = vim.cmd
 
 local colors = require("colors").get()
@@ -56,7 +54,6 @@ cmd("hi! StatusLineNC gui=underline guifg=" .. line)
 
 -- cmd "hi clear CursorLine"
 cmd "hi clear SignColumn"
-
 fg("cursorlinenr", white)
 
 -- git signs ---
@@ -74,10 +71,8 @@ fg("NvimTreeIndentMarker", one_bg2)
 fg("NvimTreeVertSplit", darker_black)
 bg("NvimTreeVertSplit", darker_black)
 fg("NvimTreeEndOfBuffer", darker_black)
-
--- fg("NvimTreeRootFolder", darker_black)
-vim.cmd("hi NvimTreeRootFolder gui=underline guifg="..purple)
 bg("NvimTreeNormal", darker_black)
+fg("NvimTreeRootFolder", red)
 fg_bg("NvimTreeStatuslineNc", darker_black, darker_black)
 fg_bg("NvimTreeWindowPicker", red, black2)
 
@@ -86,9 +81,12 @@ fg("TelescopeBorder", grey)
 fg("TelescopePromptBorder", green)
 fg("TelescopeResultsBorder", grey)
 fg("TelescopePreviewBorder", grey)
+fg("TelescopePreviewTitle", green)
+fg("TelescopePromptTitle", green)
+fg("TelescopeResultsTitle", green)
+bg("TelescopeSelection", black2)
 
 -- LspDiagnostics ---
-
 fg("DiagnosticHint", purple)
 fg("DiagnosticError", red)
 fg("DiagnosticWarn", yellow)

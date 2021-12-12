@@ -29,7 +29,7 @@ return packer.startup(
             "glepnir/galaxyline.nvim",
             after = "nvim-base16.lua",
             config = function()
-                require "configs.statusline"
+                require "plugins.configs.statusline"
             end
         }
 
@@ -37,7 +37,7 @@ return packer.startup(
             "norcalli/nvim-colorizer.lua",
             event = "BufRead",
             config = function()
-                require("configs.others").colorizer()
+                require("plugins.configs.others").colorizer()
             end
         }
 
@@ -45,7 +45,7 @@ return packer.startup(
             "kyazdani42/nvim-web-devicons",
             after = "nvim-base16.lua",
             config = function()
-                require "configs.icons"
+                require "plugins.configs.icons"
             end
             -- NOTE: requires nerd font
         }
@@ -54,7 +54,7 @@ return packer.startup(
             "nvim-treesitter/nvim-treesitter",
             event = "BufRead",
             config = function()
-                require "configs.treesitter"
+                require "plugins.configs.treesitter"
             end
         }
 
@@ -71,7 +71,7 @@ return packer.startup(
             "neovim/nvim-lspconfig",
             after = "nvim-lsp-installer",
             config = function()
-                require "configs.lspconfig"
+                require "plugins.configs.lspconfig"
             end
         }
 
@@ -79,7 +79,7 @@ return packer.startup(
             "ray-x/lsp_signature.nvim",
             after = "nvim-lspconfig",
             config = function()
-                require "configs.signature"
+                require "plugins.configs.signature"
             end
         }
 
@@ -93,7 +93,7 @@ return packer.startup(
             "hrsh7th/nvim-cmp",
             after = "friendly-snippets",
             config = function()
-                require "configs.cmp"
+                require "plugins.configs.cmp"
             end
         }
 
@@ -102,7 +102,7 @@ return packer.startup(
             wants = "friendly-snippets",
             after = "nvim-cmp",
             config = function()
-                require "configs.luasnip"
+                require "plugins.configs.luasnip"
             end
         }
 
@@ -139,7 +139,7 @@ return packer.startup(
             requires = "kyazdani42/nvim-web-devicons",
             cmd = "NvimTreeToggle",
             config = function()
-                require "configs.nvimtree"
+                require "plugins.configs.nvimtree"
             end
         }
 
@@ -154,7 +154,7 @@ return packer.startup(
                 {"nvim-telescope/telescope-ghq.nvim"}
             },
             config = function()
-                require "configs.telescope"
+                require "plugins.configs.telescope"
             end
         }
 
@@ -163,7 +163,7 @@ return packer.startup(
             "lewis6991/gitsigns.nvim",
             after = "plenary.nvim",
             config = function()
-                require "configs.gitsigns"
+                require "plugins.configs.gitsigns"
             end
         }
 
@@ -176,7 +176,7 @@ return packer.startup(
             requires = "vim-test/vim-test",
             run = ":UpdateRemotePlugins",
             config = function()
-                require "configs.ultest"
+                require "plugins.configs.ultest"
             end
         }
 
@@ -185,7 +185,7 @@ return packer.startup(
         use {
             "numToStr/Comment.nvim",
             config = function()
-                require "configs.comment"
+                require "plugins.configs.comment"
             end
         }
 
@@ -193,7 +193,7 @@ return packer.startup(
             "windwp/nvim-autopairs",
             after = "nvim-cmp",
             config = function()
-                require "configs.autopairs"
+                require "plugins.configs.autopairs"
             end
         }
 
@@ -231,14 +231,14 @@ return packer.startup(
             "andweeb/presence.nvim",
             event = "BufRead",
             config = function()
-                require("configs.others").presence()
+                require("plugins.configs.others").presence()
             end
         }
 
         use {
             "aserowy/tmux.nvim",
             config = function()
-                require "configs.tmux"
+                require "plugins.configs.tmux"
             end
         }
 

@@ -86,6 +86,7 @@ These are my configurations & tools I run daily on MacOS.
     * [surround](https://github.com/tpope/vim-surround) - manipulating opening/closing brackets/parens etc.
     * [repeat](https://github.com/tpope/vim-repeat) - repeating `.` motion for surround.
     * [markdown-preview](https://github.com/iamcco/markdown-preview.nvim) - markdown live-server.<br>
+    * [emmet-vim](https://github.com/mattn/emmet-vim) - emmet for html,css abbreviations *currently does not have a completion source*.<br>
 
 
   **NOTICE:**<br>
@@ -97,7 +98,8 @@ These are my configurations & tools I run daily on MacOS.
   If you wish to understand the configurations or better, modify/extend them, learning basic `lua` is necessary.
   There are many guides out there, but this covers most of what you need: [nvim-lua-guide](https://github.com/nanotee/nvim-lua-guide)
 
-  **Currently looking into nvim-dap for debugging purposes**
+  - [ ] Look into nvim-dap for debugging purposes.
+  - [ ] Look into null-ls for formatting purposes.
 
 ---
 #### <u>Tmux</u>

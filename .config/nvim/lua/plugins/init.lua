@@ -174,16 +174,6 @@ return packer.startup(
             end
         }
 
-        -- formatter
-        -- use {
-        --     "jose-elias-alvarez/null-ls.nvim",
-        --     after = "nvim-lspconfig",
-        --     config = function()
-        --         require("plugins.configs.null-ls").setup()
-        --     end,
-        -- }
-
-
         -- git stuff
         use {
             "lewis6991/gitsigns.nvim",
@@ -229,16 +219,10 @@ return packer.startup(
             run = [[sh -c 'cd app && yarn install']]
         }
 
-        -- use {
-        --     "catppuccin/nvim",
-        --     config = function()
-        --         vim.cmd[[colorscheme catppuccin]]
-        --     end
-        -- }
-
         use {"tpope/vim-fugitive"}
         use {"tpope/vim-rhubarb"}
         use {"tpope/vim-surround"} --
+        use {"tpope/vim-repeat"}
         use {"lepture/vim-jinja"}  -- flask syntax hilighting
         use {"mattn/emmet-vim"}
 

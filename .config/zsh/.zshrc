@@ -3,9 +3,10 @@ export TERM='xterm-256color'
 export EDITOR='nvim'
 export BROWSER='firefox'
 ### HISTORY MANAGEMENT ###
-export HISTTIMEFORMAT="[%F %T] "
 export KEYTIMEOUT=5
 
+HISTTIMEFORMAT="%Y-%m-%d %T "
+# HISTTIMEFORMAT="[%F %T] "
 HISTSIZE=1000000000
 SAVEHIST=1000000000
 setopt INC_APPEND_HISTORY

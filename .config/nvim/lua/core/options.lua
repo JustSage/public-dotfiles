@@ -38,10 +38,11 @@ o.updatetime = 250                        -- update interval for gitsigns.
 o.keywordprg = ':help'                    -- open help with 'K'.
 o.clipboard = "unnamedplus"               -- clipboard settings for my os (darwin)
 o.fillchars = {eob = " "}                 -- avoid trailing whitespace
+o.mouse = 'a'
 
-cmd([[set formatoptions-=cro]])           -- disable comment continouation in next line
+vim.cmd.colorscheme "catppuccin"
 
-
+cmd([[setlocal formatoptions-=cro]])           -- disable comment continouation in next line
 o.path:append{'**'}                       -- file paths, searching and ignores
 o.wildignore:append{"*/node_modules/*", "*.pyc", "*.DS_Store","*.jpg", "*.bmp", "*.gif", "*.png", "*.jpeg","versions/*","cache/*"}
 o.suffixesadd:append{".js",".es",".jsx",".json",".css",".sass",".py",".md",".java",".c",".cpp"}
@@ -80,17 +81,3 @@ for _, plugin in pairs(disabled_built_ins) do
     vim.g["loaded_" .. plugin] = 1
 end
 
--- packer compile on plugins.lua change.
-cmd([[autocmd BufWritePost plugins.lua source <afile> | PackerCompile]])
--- turn off paste mode when leaving insert.
-cmd([[autocmd InsertLeave * set nopaste]])
--- set spelling for git commits, org and markdown files.
-cmd([[augroup SetSpelling autocmd! autocmd FileType gitcommit,markdown,org setlocal spell spelllang=en_us]])
--- open a file where where you left
-cmd([[au BufReadPost * if expand('%:p') !~# '\m/\.git/' && line("'\"") > 1 && line("'\"") <= line("$") | exe "normal! g'\"" | endif]])
--- turn off paste mode when leaving insert.
-cmd([[autocmd InsertLeave * set nopaste]])
--- file specific tabbing.
-cmd([[autocmd FileType python,lua,java setlocal expandtab tabstop=4 shiftwidth=4 softtabstop=4]])
-
-cmd [[ au TermOpen term://* setfiletype terminal ]]

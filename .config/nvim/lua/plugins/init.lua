@@ -16,22 +16,9 @@ return packer.startup(
             event = "VimEnter"
         }
 
-        -- UI & Colors, icons
-        use {
-            "NvChad/nvim-base16.lua",
-            after = "packer.nvim",
-            config = function()
-                require("colors").init()
-            end
-        }
 
-        use {
-            "glepnir/galaxyline.nvim",
-            after = "nvim-base16.lua",
-            config = function()
-                require "plugins.configs.statusline"
-            end
-        }
+        -- UI & Colors, icons
+        use { "catppuccin/nvim", as = "catppuccin" }
 
         use {
             "norcalli/nvim-colorizer.lua",
@@ -43,11 +30,20 @@ return packer.startup(
 
         use {
             "kyazdani42/nvim-web-devicons",
-            after = "nvim-base16.lua",
+            -- after = "base46",
             config = function()
                 require "plugins.configs.icons"
             end
             -- NOTE: requires nerd font
+        }
+
+        -- terminal
+        use {
+            "akinsho/toggleterm.nvim",
+            event = "BufRead",
+            config = function()
+                require "plugins.configs.terminal"
+            end
         }
 
         use {
@@ -58,7 +54,16 @@ return packer.startup(
             end
         }
 
+        -- Flask syntax highlight
         use {"lepture/vim-jinja"}
+
+        -- Rest api
+        use {
+            "NTBBloodbath/rest.nvim",
+            config = function()
+                require "plugins.configs.rest"
+            end
+        }
 
         -- Lsp related
         use {
@@ -74,6 +79,9 @@ return packer.startup(
                 require "plugins.configs.lspconfig"
             end
         }
+
+        use { "mfussenegger/nvim-jdtls" }
+
 
         use {
             "ray-x/lsp_signature.nvim",
@@ -131,7 +139,6 @@ return packer.startup(
             after = "cmp-buffer"
         }
 
-
         -- File navigation & fuzzy finder
 
         use {
@@ -148,7 +155,7 @@ return packer.startup(
 
         use {
             "nvim-telescope/telescope.nvim",
-            cmd = "Telescope",
+            -- cmd = "Telescope", slowing down startup
             requires = {
                 {"nvim-telescope/telescope-fzf-native.nvim", run = "make"},
                 {"nvim-telescope/telescope-ghq.nvim"}
@@ -159,13 +166,14 @@ return packer.startup(
         }
 
         -- Git related
-        use {
-            "lewis6991/gitsigns.nvim",
-            after = "plenary.nvim",
-            config = function()
-                require "plugins.configs.gitsigns"
-            end
-        }
+        -- use {
+        --     "lewis6991/gitsigns.nvim",
+        --     after = "plenary.nvim",
+        --     config = function()
+        --         require "plugins.configs.gitsigns"
+        --     end
+        --
+        -- }
 
         use {"tpope/vim-fugitive"}
         use {"tpope/vim-rhubarb"}
@@ -179,6 +187,17 @@ return packer.startup(
                 require "plugins.configs.ultest"
             end
         }
+
+        -- Debugging
+        use "Pocco81/DAPInstall.nvim"
+        use {
+            "mfussenegger/nvim-dap",
+            config = function()
+                require "plugins.configs.dap"
+            end
+        }
+
+
 
         -- Miscellaneous
 
@@ -243,13 +262,13 @@ return packer.startup(
         }
 
         -- Org mode
-        use {
-            'kristijanhusak/orgmode.nvim',
-            after = 'nvim-treesitter',
-            config = function()
-                require('orgmode').setup{}
-            end
-        }
+        -- use {
+        --     'kristijanhusak/orgmode.nvim',
+        --     after = 'nvim-treesitter',
+        --     config = function()
+        --         require('orgmode').setup{}
+        --     end
+        -- }
 
         -- Personal modded extensions
         use { "JustSage/extensions" }

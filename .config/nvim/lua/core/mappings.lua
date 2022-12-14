@@ -55,13 +55,12 @@ map("n", "<leader>gb", ":Git blame<CR>")
 -- Telescope
 map("n", "<leader>fg", ":Telescope live_grep<CR>")
 map("n", "<leader>gc", ":Telescope git_commits <CR>")
-map("n", "<leader>ff", ":Telescope find_files <CR>")
+map("n", "<leader>ff", ":Telescope find_files<CR>")
 map("n", "<leader>fb", ":Telescope buffers<CR>")
 map("n", "<leader>fh", ":Telescope help_tags<CR>")
 map("n", "<leader>fw", ":Telescope grep_string<CR>")
 map("n", "<leader>th", ":Telescope themes<CR>")
 map("n", "<C-g><C-g>", ":Telescope git_files <CR>")
-
 map("n", "<leader>gq", ":Telescope ghq list<CR>")
 map("n", "<leader>rc", ":lua require('plugins.configs.telescope').search_dotfiles()<CR>")
 
@@ -96,7 +95,9 @@ map("n", "<leader>de", ":lua require'dap'.set_exception_breakpoints({'all'})<CR>
 map("n", "<leader>di", ":lua require'dap.ui.widgets'.hover()<CR>")
 map("n", "<leader>d?", ":lua require'dap.ui.widgets';widgets.centered_float(widgets.scopes)<CR>")
 
+map("n", "<leader>dc", ":lua require'dap'.continue()<CR>")
+map("n", "<leader>dg", ":lua require'dap'.step_over()<CR>")
 map("n", "<leader>ds", ":lua require'dap'.step_out()<CR>")
 map("n", "<leader>dss", ":lua require'dap'.step_into()<CR>")
-map("n", "<leader>dg", ":lua require'dap'.step_over()<CR>")
-map("n", "<leader>dc", ":lua require'dap'.continue()<CR>")
+
+-- map("n", "<leader>res", "<Plug>(RestNvim) :lua require('rest-nvim').run()<CR>")

@@ -1,43 +1,35 @@
-local present,lsp_installer = pcall(require,"nvim-lsp-installer")
-if not present then
+local util = require("lspconfig/util")
+
+local mason_lspconfig_status, mason_lspconfig = pcall(require, "mason-lspconfig")
+if not mason_lspconfig_status then
     return
 end
 
+local lspconfig_status, lspconfig = pcall(require, "lspconfig")
+if not lspconfig_status then
+    return
+end
 
+-- remaps on attach to buffer
 local function on_attach(client, bufnr)
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
+    local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
-    local opts = {noremap = true, silent = true}
-
-    local function buf_set_keymap(...)
-        vim.api.nvim_buf_set_keymap(bufnr, ...)
-    end
-
-    buf_set_keymap("n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
-    buf_set_keymap("n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
-    buf_set_keymap("n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
-    buf_set_keymap("n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
-    buf_set_keymap("n", "gk", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
-    buf_set_keymap("n", "<space>wa", "<cmd>lua vim.lsp.buf.add_workspace_folder()<CR>", opts)
-    buf_set_keymap("n", "<space>wr", "<cmd>lua vim.lsp.buf.remove_workspace_folder()<CR>", opts)
-    buf_set_keymap("n", "<space>wl", "<cmd>lua print(vim.inspect(vim.lsp.buf.list_workspace_folders()))<CR>", opts)
-    buf_set_keymap("n", "<space>D", "<cmd>lua vim.lsp.buf.type_definition()<CR>", opts)
-    buf_set_keymap("n", "<space>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
-    buf_set_keymap("n", "<space>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
-    buf_set_keymap("n", "gr", "<cmd>lua vim.buf.references()<CR>", opts)
-    buf_set_keymap("n", "ge", "<cmd>lua vim.diagnostic.show_line_diagnostics()<CR>", opts)
-    buf_set_keymap("n", "<space>d", "<cmd>lua vim.diagnostic.goto_next()<CR>", opts)
-    buf_set_keymap("n", "<space>dd", "<cmd>lua vim.diagnostic.goto_prev()<CR>", opts)
-    buf_set_keymap("n", "<space>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
-    buf_set_keymap("n", "<space>fm", "<cmd>lua vim.lsp.buf.formatting()<CR>", opts)
-    buf_set_keymap("v", "<space>ca", "<cmd>lua vim.lsp.buf.range_code_action()<CR>", opts)
-
-    -- Format on save
-    if client.resolved_capabilities.document_formatting then
-        vim.cmd("autocmd BufWritePre <buffer> lua vim.lsp.buf.formatting_sync()")
-    end
+    vim.keymap.set("n", "gD", vim.lsp.buf.declaration, bufopts)
+    vim.keymap.set("n", "gd", vim.lsp.buf.definition, bufopts)
+    vim.keymap.set("n", "gi", vim.lsp.buf.implementation, bufopts)
+    vim.keymap.set("n", "gr", vim.lsp.buf.references, bufopts)
+    vim.keymap.set("n", "<C-k>", vim.lsp.buf.signature_help, bufopts)
+    vim.keymap.set("n", "<space>wa", vim.lsp.buf.add_workspace_folder, bufopts)
+    vim.keymap.set("n", "<space>wr", vim.lsp.buf.remove_workspace_folder, bufopts)
+    vim.keymap.set("n", "<space>wl", function()
+        print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
+    end, bufopts)
+    vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
 end
+
 local capabilities = vim.lsp.protocol.make_client_capabilities()
+
 capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
 capabilities.textDocument.completion.completionItem.snippetSupport = true
 capabilities.textDocument.completion.completionItem.preselectSupport = true
@@ -47,16 +39,16 @@ capabilities.textDocument.completion.completionItem.deprecatedSupport = true
 capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
 capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
 capabilities.textDocument.completion.completionItem.resolveSupport = {
-   properties = {
-      "documentation",
-      "detail",
-      "additionalTextEdits",
-   },
+    properties = {
+        "documentation",
+        "detail",
+        "additionalTextEdits",
+    },
 }
 
 -- replace the default lsp diagnostic symbols
 function LspSymbol(name, icon)
-    vim.fn.sign_define("LspDiagnosticsSign" .. name, {text = icon, numhl = "LspDiagnosticsDefaul" .. name})
+    vim.fn.sign_define("LspDiagnosticsSign" .. name, { text = icon, numhl = "LspDiagnosticsDefaul" .. name })
 end
 
 LspSymbol("Error", "")
@@ -64,21 +56,17 @@ LspSymbol("Warning", "")
 LspSymbol("Information", "")
 LspSymbol("Hint", "")
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] =
-    vim.lsp.with(
-    vim.lsp.diagnostic.on_publish_diagnostics,
-    {
-        virtual_text = {
-            prefix = "",
-            spacing = 0
-        },
-        signs = true,
-        underline = true,
+vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+    virtual_text = {
+        prefix = "",
+        spacing = 0,
+    },
+    signs = true,
+    underline = true,
 
-        -- set this to true if you want diagnostics to show in insert mode
-        update_in_insert = false
-    }
-)
+    -- set this to true if you want diagnostics to show in insert mode
+    update_in_insert = false,
+})
 
 -- suppress error messages from lang servers
 vim.notify = function(msg, log_level)
@@ -88,44 +76,109 @@ vim.notify = function(msg, log_level)
     if log_level == vim.log.levels.ERROR then
         vim.api.nvim_err_writeln(msg)
     else
-        vim.api.nvim_echo({{msg}}, true, {})
+        vim.api.nvim_echo({ { msg } }, true, {})
     end
 end
 
+mason_lspconfig.setup({
+    ensure_installed = { "pyright", "tsserver", "sumneko_lua", "tailwindcss" },
+})
 
-lsp_installer.on_server_ready(function(server)
-    local opts = {}
+lspconfig.tsserver.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    root_dir = util.root_pattern("package.json", ".git") or vim.fn.expand("%p"),
+    filetype = { "javascript", "javascriptreact", "javascript.jsx", "typescript", "typescriptreact", "typescript.tsx" },
+    cmd = { "typescript-language-server", "--stdio" },
+})
 
-    if server.name == "sumneko_lua" then
-        opts = {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            root_dir = vim.loop.cwd,
-            settings = {
-                Lua = {
-                    diagnostics = {
-                        globals = {"vim"}
-                    },
-                    workspace = {
-                        library = {
-                            [vim.fn.expand("$VIMRUNTIME/lua")] = true,
-                            [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true
-                        },
-                        maxPreload = 100000,
-                        preloadFileSize = 10000
-                    },
-                    telemetry = {
-                        enable = false
-                    },
-                }
-            }
-        }
-    else
-        opts = {
-            on_attach = on_attach,
-            capabilities = capabilities,
-            root_dir = vim.loop.cwd
-        }
-    end
-    server:setup(opts)
-end)
+lspconfig.tailwindcss.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+})
+
+lspconfig.html.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { "vscode-html-language-server", "--stdio" },
+    filetype = { "html" },
+    single_file_support = true,
+    init_options = {
+        configurationSection = { "html", "css", "javascript" },
+        embeddedLanguages = {
+            css = true,
+            javascript = true,
+        },
+        provideFormatter = true,
+    },
+})
+
+lspconfig.emmet_ls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less" },
+    init_options = {
+        html = {
+            options = {
+                -- For possible options, see: https://github.com/emmetio/emmet/blob/master/src/config.ts#L79-L267
+                ["bem.enabled"] = true,
+            },
+        },
+    },
+})
+
+lspconfig.cssls.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    cmd = { "vscode-css-language-server", "--stdio" },
+    filetypes = { "css", "scss", "less" },
+    root_dir = util.root_pattern("package.json", ".git") or vim.fn.expand("%p"),
+    single_file_support = true,
+    settings = {
+        css = { validate = true },
+    },
+})
+
+lspconfig.pyright.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    filetype = { "python" },
+    cmd = { "pyright-langserver", "--stdio" },
+    settings = {
+        python = {
+            analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = "workspace",
+                useLibraryCodeForTypes = true,
+            },
+        },
+    },
+    root_dir = function(fname)
+        return util.root_pattern("src", ".git", "setup.py", "setup.cfg", "pyproject.toml", "requirements.txt")(fname)
+            or util.path.dirname(fname)
+    end,
+})
+
+lspconfig.sumneko_lua.setup({
+    on_attach = on_attach,
+    capabilities = capabilities,
+    root_dir = vim.loop.cwd,
+    settings = {
+        Lua = {
+            diagnostics = {
+                globals = { "vim" },
+            },
+            workspace = {
+                library = {
+                    [vim.fn.expand("$VIMRUNTIME/lua")] = true,
+                    [vim.fn.expand("$VIMRUNTIME/lua/vim/lsp")] = true,
+                },
+                maxPreload = 100000,
+                preloadFileSize = 10000,
+            },
+            telemetry = {
+                enable = false,
+            },
+        },
+    },
+})

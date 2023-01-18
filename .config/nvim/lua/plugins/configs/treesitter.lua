@@ -4,14 +4,9 @@ if not present then
 end
 
 ts_config.setup {
-    highlight = {
-        enable = true,
-        use_languagetree = true,
-    -- disable = {'org'}, -- Remove this to use TS highlighter for some of the highlights (Experimental)
-    -- additional_vim_regex_highlighting = {'org'}, -- Required since TS highlighter doesn't support all syntax features (conceal)
-    },
     ensure_installed = {
-        -- "org",
+        "vim",
+        "help",
         "bash",
         "regex",
         "python",
@@ -28,7 +23,17 @@ ts_config.setup {
         "json",
         "c",
     },
+    highlight = {
+        enable = true,
+        use_languagetree = true,
+    },
     rainbow = {
+        enable = true
+    },
+    matchup = {
+        enable = true
+    },
+    autotag = {
         enable = true
     }
 }

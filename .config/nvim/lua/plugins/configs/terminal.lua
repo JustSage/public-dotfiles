@@ -1,10 +1,10 @@
 local present, terminal = pcall(require, "toggleterm")
 
 if not present then
-   return
+    return
 end
 
-terminal.setup{
+terminal.setup {
     -- size can be a number or function which is passed the current terminal
     size = 20,
     -- open_mapping = [[<c-\>]],
@@ -22,19 +22,22 @@ terminal.setup{
     shell = vim.o.shell, -- change the default shell
     -- This field is only relevant if direction is set to 'float'
     float_opts = {
-      -- The border key is *almost* the same as 'nvim_win_open'
-      -- see :h nvim_win_open for details on borders however
-      -- the 'curved' border is a custom border type
-      -- not natively supported but implemented in this plugin.
-      -- border = 'single' | 'double' | 'shadow' | 'curved' | ... other options supported by win open
-      border = "curved",
-      width = 100,
-      height = 20,
-      winblend = 0,
-      highlights = {
-        border = "Normal",
-        background = "Normal",
-      },
+        border = "curved",
+        width = 100,
+        height = 20,
+        winblend = 0,
+        highlights = {
+            border = "Normal",
+            background = "Normal",
+        },
     },
-  }
+}
 
+local Terminal = require('toggleterm.terminal').Terminal
+local lazygit  = Terminal:new({ cmd = "lazygit", hidden = true })
+
+function _Lazygit_toggle()
+    lazygit:toggle()
+end
+
+vim.api.nvim_set_keymap("n", "<leader>g", "<cmd>lua _Lazygit_toggle()<CR>", { noremap = true, silent = true })

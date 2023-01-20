@@ -9,15 +9,20 @@ saga.setup({
 		colors = require("catppuccin.groups.integrations.lsp_saga").custom_colors(),
 		kind = require("catppuccin.groups.integrations.lsp_saga").custom_kind(),
 	},
-	code_action_lightbulb = {
+	lightbulb = {
 		cache_code_action = false,
 		virtual_text = false,
 		sign = true,
 	},
-	code_action_keys = {
-		quit = "<ESC>",
-		exec = "<CR>",
+	code_action = {
+        keys = {
+            quit = "<ESC>",
+            exec = "<CR>",
+        }
 	},
+    symbol_in_winbar = {
+        enable = false,
+    }
 })
 
 local opts = { silent = true }

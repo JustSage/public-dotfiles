@@ -3,7 +3,7 @@ local modules = {
 	"core.mappings",
 	"core.utils",
 	"core.functions",
-    "core.commands"
+	"core.commands",
 }
 
 for _, module in ipairs(modules) do

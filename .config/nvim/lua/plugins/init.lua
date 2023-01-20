@@ -1,17 +1,42 @@
-local present, _ = pcall(require, "plugins.packerinit")
-local packer
-
-if present then
-	packer = require("packer")
-else
+local _packer, packer = pcall(require, "plugins.bootstrap")
+if not _packer then
 	return false
 end
 
-local use = packer.use
-
-return packer.startup(function()
+return packer.startup(function(use)
 	-- Plugin manager
-	use({ "wbthomason/packer.nvim", event = "VimEnter" })
+	use({ "wbthomason/packer.nvim", event = "BufRead" })
+
+	-- use({
+	-- 	"lewis6991/impatient.nvim",
+	-- 	config = function()
+	-- 		require("plugins.configs.impatient")
+	-- 	end,
+	-- })
+
+	-- Lsp related
+	use({
+		"williamboman/mason.nvim",
+		config = function()
+			require("mason").setup()
+		end,
+	})
+	use({
+		"neovim/nvim-lspconfig",
+		after = "mason.nvim",
+		config = function()
+			require("plugins.configs.lspconfig")
+		end,
+	})
+	use({ "williamboman/mason-lspconfig.nvim", after = "mason.nvim" })
+	use({ "jayp0521/mason-null-ls.nvim", after = "mason.nvim" })
+	use({
+		"jayp0521/mason-nvim-dap.nvim",
+		after = "mason.nvim",
+		config = function()
+			require("mason-nvim-dap").setup()
+		end,
+	})
 
 	-- UI & Colors, icons
 	use({
@@ -36,7 +61,9 @@ return packer.startup(function()
 	}) -- NOTE: requires nerd font }
 	use({
 		"nvim-lualine/lualine.nvim",
-		requires = { "kyazdani42/nvim-web-devicons", opt = true },
+		requires = {
+			"kyazdani42/nvim-web-devicons", --[[ ,opt = true ]]
+		},
 		config = function()
 			require("plugins.configs.lualine")
 		end,
@@ -54,31 +81,6 @@ return packer.startup(function()
 			require("plugins.configs.treesitter")
 		end,
 	})
-
-	-- Lsp related
-	use({
-		"williamboman/mason.nvim",
-		config = function()
-			require("mason").setup()
-		end,
-	})
-	use({ "williamboman/mason-lspconfig.nvim", after = "mason.nvim" })
-	use({
-		"neovim/nvim-lspconfig",
-		after = "mason.nvim",
-		config = function()
-			require("plugins.configs.lspconfig")
-		end,
-	})
-	use({ "jayp0521/mason-null-ls.nvim", after = "mason.nvim" })
-	use({
-		"jayp0521/mason-nvim-dap.nvim",
-		after = "mason.nvim",
-		config = function()
-			require("mason-nvim-dap").setup()
-		end,
-	})
-
 	-- Completion engine & Snippets
 	use({ "rafamadriz/friendly-snippets", event = "InsertEnter" })
 	use({
@@ -106,11 +108,11 @@ return packer.startup(function()
 	use({ "kdheepak/cmp-latex-symbols", after = "nvim-cmp" })
 	use({ "jcha0713/cmp-tw2css", after = "nvim-cmp" })
 	use({ "andersevenrud/cmp-tmux", after = "nvim-cmp" })
-	-- use({ "dcampos/cmp-emmet-vim" })
+	use({ "dcampos/cmp-emmet-vim", after = "nvim-cmp" })
 
 	use({
 		"glepnir/lspsaga.nvim",
-		event = "BufRead",
+		-- event = "BufRead",
 		after = "nvim-lspconfig",
 		branch = "main",
 		config = function()
@@ -205,6 +207,7 @@ return packer.startup(function()
 	})
 	use({
 		"windwp/nvim-ts-autotag",
+		ft = { "javascript", "javascriptreact", "html", "css", "typescript", "typescriptreact" },
 		after = "nvim-treesitter",
 		branch = "main",
 		config = function()
@@ -213,7 +216,7 @@ return packer.startup(function()
 	})
 
 	-- Integrations and misc
-	use({ "iamcco/markdown-preview.nvim", run = [[sh -c 'cd app && yarn install']] })
+	use({ "iamcco/markdown-preview.nvim", ft = { "markdown" }, run = [[sh -c 'cd app && yarn install']] })
 	use({
 		"mattn/emmet-vim",
 		config = function()
@@ -229,27 +232,23 @@ return packer.startup(function()
 	})
 	use({
 		"andweeb/presence.nvim",
-		event = "BufRead",
+		-- event = "BufRead",
 		config = function()
 			require("plugins.configs.others").presence()
 		end,
 	})
 	use({
 		"akinsho/toggleterm.nvim",
-		event = "BufRead",
+		-- event = "BufRead",
+		cmd = { "ToggleTerm" },
+		--
 		config = function()
 			require("plugins.configs.terminal")
 		end,
 	})
+
 	use({ "dstein64/vim-startuptime", cmd = { "StartupTime" } })
 
-	use({
-		"jackMort/ChatGPT.nvim",
-		config = function()
-			require("chatgpt").setup({})
-		end,
-		requires = { "MunifTanjim/nui.nvim", "nvim-lua/plenary.nvim", "nvim-telescope/telescope.nvim" },
-	})
 	use({
 		"folke/todo-comments.nvim",
 		requires = "nvim-lua/plenary.nvim",

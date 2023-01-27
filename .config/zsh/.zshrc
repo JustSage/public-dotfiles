@@ -1,7 +1,10 @@
 ### PATHS ###
-export TERM='xterm-256color'
 export EDITOR='nvim'
-export BROWSER='firefox'
+export BROWSER='google-chrome'
+export TERM='xterm-256color'
+export COLORTERM='truecolor'
+export LESSHISTFILE="-"
+
 ### HISTORY MANAGEMENT ###
 export KEYTIMEOUT=5
 
@@ -15,7 +18,6 @@ setopt HIST_FIND_NO_DUPS
 # startup actions
 if command -v tmux &> /dev/null && [ -z "$TMUX" ]; then
     tmux attach -t dev || tmux new -c $WORKSPACE -s dev
-    tmux new -c $XDG_CONFIG_HOME -d -s dotfiles
 fi
 
 if command -v pyenv 1>/dev/null 2>&1; then

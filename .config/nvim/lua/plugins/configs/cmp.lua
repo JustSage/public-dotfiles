@@ -27,8 +27,16 @@ cmp.setup({
 				emmet_vim = "[Emmet]",
 				buffer = "[BUF]",
 				latex_symbols = "[Latex]",
+				env = "[ENV]",
 			})[entry.source.name]
 
+			vim_item.dup = ({
+				nvim_lsp = 0,
+				nvim_lua = 0,
+				buffer = 0,
+				cmdline = 0,
+				path = 0,
+			})[entry.source.name] or 0
 			return vim_item
 		end,
 	},
@@ -71,14 +79,24 @@ cmp.setup({
 	sources = {
 		{ name = "nvim_lsp" },
 		{ name = "luasnip" },
-		{ name = "buffer" },
-		{ name = "nvim_lua" },
-		{ name = "path" },
 		{ name = "nvim_lsp_signature_help" },
+		{ name = "nvim_lua" },
+		{ name = "emmet_vim" },
+		-- { name = "rg" },
 		{ name = "latex_symbols", option = { strategy = 2 } },
 		{ name = "cmp-tw2css" },
-		{ name = "emmet_vim" },
 		{ name = "tmux" },
+		{
+			name = "env",
+			option = {
+				eval_on_confirm = false,
+				show_documentation_window = true,
+				item_kind = cmp.lsp.CompletionItemKind.Constructor,
+			},
+			group_index = 2,
+		},
+		{ name = "path" },
+		{ name = "buffer" },
 	},
 
 	enabled = function()

@@ -3,7 +3,11 @@ local M = {}
 M.colorizer = function()
     local present, colorizer = pcall(require, "colorizer")
     if present then
-        colorizer.setup()
+        colorizer.setup({
+            user_default_options = {
+                virtualtext = "■",
+            },
+        })
         vim.cmd("ColorizerReloadAllBuffers")
     end
 end

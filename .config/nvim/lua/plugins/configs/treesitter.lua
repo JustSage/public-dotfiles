@@ -3,8 +3,9 @@ if not present then
     return
 end
 
-ts_config.setup {
+ts_config.setup({
     ensure_installed = {
+        "markdown",
         "vim",
         "help",
         "bash",
@@ -28,12 +29,12 @@ ts_config.setup {
         use_languagetree = true,
     },
     rainbow = {
-        enable = true
+        enable = true,
     },
     matchup = {
-        enable = true
+        enable = true,
     },
     autotag = {
-        enable = true
-    }
-}
+        enable = true,
+    },
+})

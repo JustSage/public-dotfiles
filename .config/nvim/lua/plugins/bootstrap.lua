@@ -9,8 +9,8 @@ if not vim.loop.fs_access(install, "R") then
 	if success then
 		vim.cmd.packadd("packer.nvim")
 	end
-	packer = require("packer")
-	packer.sync()
+        packer = require("packer")
+        packer.sync()
 end
 
 if not packer then
@@ -18,6 +18,7 @@ if not packer then
 end
 
 packer.init({
+    -- compile_path = vim.fn.stdpath("config") .. "/lua/plugins/packer_compiled.lua",
 	display = {
 		open_fn = function()
 			return require("packer.util").float({ border = "single" })
@@ -30,7 +31,5 @@ packer.init({
 	auto_clean = true,
 	compile_on_sync = true,
 })
-
-vim.g.packer_installed = vim.fn.stdpath("config") .. "/lua/plugin/packer_compiled.lua"
 
 return packer

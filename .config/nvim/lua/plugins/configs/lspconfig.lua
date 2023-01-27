@@ -12,6 +12,9 @@ end
 
 -- remaps on attach to buffer
 local function on_attach(client, bufnr)
+    client.server_capabilities.documentationFormattingProvider = false
+    client.server_capabilities.documentRangeFormattingProvider = false
+
     vim.api.nvim_buf_set_option(bufnr, "omnifunc", "v:lua.vim.lsp.omnifunc")
     local bufopts = { noremap = true, silent = true, buffer = bufnr }
 
@@ -26,35 +29,41 @@ local function on_attach(client, bufnr)
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
     vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
+    vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
 
-capabilities.textDocument.completion.completionItem.documentationFormat = { "markdown", "plaintext" }
-capabilities.textDocument.completion.completionItem.snippetSupport = true
-capabilities.textDocument.completion.completionItem.preselectSupport = true
-capabilities.textDocument.completion.completionItem.insertReplaceSupport = true
-capabilities.textDocument.completion.completionItem.labelDetailsSupport = true
-capabilities.textDocument.completion.completionItem.deprecatedSupport = true
-capabilities.textDocument.completion.completionItem.commitCharactersSupport = true
-capabilities.textDocument.completion.completionItem.tagSupport = { valueSet = { 1 } }
-capabilities.textDocument.completion.completionItem.resolveSupport = {
-    properties = {
-        "documentation",
-        "detail",
-        "additionalTextEdits",
+capabilities.textDocument.completion.completionItem = {
+    documentationFormat = { "markdown", "plaintext" },
+    snippetSupport = true,
+    preselectSupport = true,
+    insertReplaceSupport = true,
+    labelDetailsSupport = true,
+    deprecatedSupport = true,
+    commitCharactersSupport = true,
+    tagSupport = { valueSet = { 1 } },
+    resolveSupport = {
+        properties = {
+            "documentation",
+            "detail",
+            "additionalTextEdits",
+        },
     },
 }
 
 -- replace the default lsp diagnostic symbols
-function LspSymbol(name, icon)
-    vim.fn.sign_define("LspDiagnosticsSign" .. name, { text = icon, numhl = "LspDiagnosticsDefaul" .. name })
-end
 
-LspSymbol("Error", "")
-LspSymbol("Warning", "")
-LspSymbol("Information", "")
-LspSymbol("Hint", "")
+local signs = {
+    { name = "DiagnosticsSignError", text = "" },
+    { name = "DiagnosticsSignWarn", text = "" },
+    { name = "DiagnosticsSignHint", text = "" },
+    { name = "DiagnosticsSignInfo", text = "" },
+}
+
+for _, sign in ipairs(signs) do
+    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+end
 
 vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
     virtual_text = {
@@ -67,6 +76,13 @@ vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagn
     -- set this to true if you want diagnostics to show in insert mode
     update_in_insert = false,
 })
+
+vim.lsp.handlers["workspace/diagnostic/refresh"] = function(_, _, ctx)
+    local ns = vim.lsp.diagnostic.get_namespace(ctx.client_id)
+    local bufnr = vim.api.nvim_get_current_buf()
+    vim.diagnostic.reset(ns, bufnr)
+    return true
+end
 
 -- suppress error messages from lang servers
 vim.notify = function(msg, log_level)
@@ -179,13 +195,9 @@ lspconfig.sumneko_lua.setup({
             telemetry = {
                 enable = false,
             },
+            completion = {
+                callSnippet = "Replace",
+            },
         },
     },
 })
-
-vim.lsp.handlers["workspace/diagnostic/refresh"] = function(_, _, ctx)
-    local ns = vim.lsp.diagnostic.get_namespace(ctx.client_id)
-    local bufnr = vim.api.nvim_get_current_buf()
-    vim.diagnostic.reset(ns, bufnr)
-    return true
-end

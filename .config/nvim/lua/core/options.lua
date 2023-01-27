@@ -33,7 +33,8 @@ o.cmdheight = 1 -- command prompt height.
 o.scrolloff = 10 -- keep 'n' lines visible when scrolling.
 o.lazyredraw = true -- good performance settings.
 o.diffopt = "vertical" -- opens git diff in vertical split.
-o.timeoutlen = 500
+-- o.timeoutlen = 500
+o.timeoutlen = 250
 o.updatetime = 250 -- update interval for gitsigns.
 o.keywordprg = ":help" -- open help with 'K'.
 o.clipboard = "" -- clipboard settings for my os (darwin)
@@ -47,16 +48,16 @@ o.mouse = "a"
 cmd([[setlocal formatoptions-=cro]]) -- disable comment continouation in next line
 o.path:append({ "**" }) -- file paths, searching and ignores
 o.wildignore:append({
-    "*/node_modules/*",
-    "*.pyc",
-    "*.DS_Store",
-    "*.jpg",
-    "*.bmp",
-    "*.gif",
-    "*.png",
-    "*.jpeg",
-    "versions/*",
-    "cache/*",
+	"*/node_modules/*",
+	"*.pyc",
+	"*.DS_Store",
+	"*.jpg",
+	"*.bmp",
+	"*.gif",
+	"*.png",
+	"*.jpeg",
+	"versions/*",
+	"cache/*",
 })
 o.suffixesadd:append({ ".html", ".js", ".es", ".jsx", ".json", ".css", ".sass", ".py", ".md", ".java", ".c", ".cpp" })
 
@@ -69,27 +70,34 @@ bo.expandtab = true
 o.signcolumn = "yes"
 wo.wrap = false
 
+-- change directory upon opening buffers, windows etc.
+g.autochdir = true
 -- providers
+
 g.python3_host_prog = "$PYENV_ROOT/shims/python"
 g.python2_host_prog = "/usr/bin/python2"
 
 local disabled_built_ins = {
-    "gzip",
-    "zip",
-    "zipPlugin",
-    "tar",
-    "tarPlugin",
-    "getscript",
-    "getscriptPlugin",
-    "vimball",
-    "vimballPlugin",
-    "2html_plugin",
-    "logipat",
-    "rrhelper",
-    "spellfile_plugin",
-    "matchit",
+	-- "netrw",
+	-- "netrwPlugin",
+	-- "netrwSettings",
+	-- "netrwFileHandlers",
+	"gzip",
+	"zip",
+	"zipPlugin",
+	"tar",
+	"tarPlugin",
+	"getscript",
+	"getscriptPlugin",
+	"vimball",
+	"vimballPlugin",
+	"2html_plugin",
+	"logipat",
+	"rrhelper",
+	"spellfile_plugin",
+	"matchit",
 }
 
 for _, plugin in pairs(disabled_built_ins) do
-    vim.g["loaded_" .. plugin] = 1
+	vim.g["loaded_" .. plugin] = 1
 end

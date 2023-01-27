@@ -66,7 +66,18 @@ telescope.setup({
 			case_mode = "smart_case", -- or "ignore_case" or "respect_case"
 			-- the default case_mode is "smart_case"
 		},
+		live_grep_args = {
+			auto_quoting = true,
+			mappings = {
+				i = {
+					["<C-k>"] = require("telescope-live-grep-args.actions").quote_prompt(),
+					["<C-i>"] = require("telescope-live-grep-args.actions").quote_prompt({ postfix = " --iglob" }),
+				},
+			},
+		},
 	},
 })
 
 telescope.load_extension("fzf")
+telescope.load_extension("ghq")
+telescope.load_extension("live_grep_args")

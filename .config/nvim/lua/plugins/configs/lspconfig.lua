@@ -1,3 +1,4 @@
+require("neodev").setup({})
 local util = require("lspconfig/util")
 
 local mason_lspconfig_status, mason_lspconfig = pcall(require, "mason-lspconfig")
@@ -28,8 +29,7 @@ local function on_attach(client, bufnr)
     vim.keymap.set("n", "<space>wl", function()
         print(vim.inspect(vim.lsp.buf.list_workspace_folders()))
     end, bufopts)
-    vim.keymap.set("n", "<space>D", vim.lsp.buf.type_definition, bufopts)
-    vim.keymap.set("n", "K", vim.lsp.buf.hover, bufopts)
+    vim.keymap.set("n", "<space>gd", vim.lsp.buf.type_definition, bufopts)
 end
 
 local capabilities = vim.lsp.protocol.make_client_capabilities()
@@ -65,17 +65,21 @@ for _, sign in ipairs(signs) do
     vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
 end
 
-vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+-- vim.lsp.handlers["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
+local config = {
     virtual_text = {
         prefix = "",
         spacing = 0,
     },
-    signs = true,
+    signs = { active = signs },
     underline = true,
 
     -- set this to true if you want diagnostics to show in insert mode
     update_in_insert = false,
-})
+}
+
+vim.diagnostic.config(config)
+
 
 vim.lsp.handlers["workspace/diagnostic/refresh"] = function(_, _, ctx)
     local ns = vim.lsp.diagnostic.get_namespace(ctx.client_id)
@@ -178,7 +182,17 @@ lspconfig.pyright.setup({
 lspconfig.sumneko_lua.setup({
     on_attach = on_attach,
     capabilities = capabilities,
-    root_dir = vim.loop.cwd,
+    root_dir = vim.F.if_nil(
+        util.root_pattern({
+            ".git",
+            ".stylua.toml",
+            "stylua.toml",
+            ".styluaignore",
+            "selene.toml",
+            ".selene.toml",
+        }),
+        vim.loop.cwd()
+    ),
     settings = {
         Lua = {
             diagnostics = {

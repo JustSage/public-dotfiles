@@ -4,6 +4,7 @@ local o = vim.opt -- a table to set option variables
 local bo = vim.bo -- a table to set buffer specific option variables
 local wo = vim.wo -- a table to set window specific option variables
 local cmd = vim.cmd -- vim cmd api
+local env = vim.env -- vim environment api
 -----------------------------------------------------------------
 o.encoding = "utf-8" -- encoding settings.
 o.fileencodings = "utf-8" -- encoding buffer settings.
@@ -48,16 +49,16 @@ o.mouse = "a"
 cmd([[setlocal formatoptions-=cro]]) -- disable comment continouation in next line
 o.path:append({ "**" }) -- file paths, searching and ignores
 o.wildignore:append({
-	"*/node_modules/*",
-	"*.pyc",
-	"*.DS_Store",
-	"*.jpg",
-	"*.bmp",
-	"*.gif",
-	"*.png",
-	"*.jpeg",
-	"versions/*",
-	"cache/*",
+  "*/node_modules/*",
+  "*.pyc",
+  "*.DS_Store",
+  "*.jpg",
+  "*.bmp",
+  "*.gif",
+  "*.png",
+  "*.jpeg",
+  "versions/*",
+  "cache/*",
 })
 o.suffixesadd:append({ ".html", ".js", ".es", ".jsx", ".json", ".css", ".sass", ".py", ".md", ".java", ".c", ".cpp" })
 
@@ -77,27 +78,30 @@ g.autochdir = true
 g.python3_host_prog = "$PYENV_ROOT/shims/python"
 g.python2_host_prog = "/usr/bin/python2"
 
+env.GIT_WORK_TREE = vim.fn.expand("$HOME")
+env.GIT_DIR = vim.fn.expand("$HOME/.cfg")
+
 local disabled_built_ins = {
-	-- "netrw",
-	-- "netrwPlugin",
-	-- "netrwSettings",
-	-- "netrwFileHandlers",
-	"gzip",
-	"zip",
-	"zipPlugin",
-	"tar",
-	"tarPlugin",
-	"getscript",
-	"getscriptPlugin",
-	"vimball",
-	"vimballPlugin",
-	"2html_plugin",
-	"logipat",
-	"rrhelper",
-	"spellfile_plugin",
-	"matchit",
+  "netrw",
+  "netrwPlugin",
+  "netrwSettings",
+  "netrwFileHandlers",
+  "gzip",
+  "zip",
+  "zipPlugin",
+  "tar",
+  "tarPlugin",
+  "getscript",
+  "getscriptPlugin",
+  "vimball",
+  "vimballPlugin",
+  "2html_plugin",
+  "logipat",
+  "rrhelper",
+  "spellfile_plugin",
+  "matchit",
 }
 
 for _, plugin in pairs(disabled_built_ins) do
-	vim.g["loaded_" .. plugin] = 1
+  vim.g["loaded_" .. plugin] = 1
 end

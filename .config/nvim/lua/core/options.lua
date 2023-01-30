@@ -7,7 +7,6 @@ local env = vim.env -- vim environment api
 -----------------------------------------------------------------
 o.encoding = "utf-8" -- encoding settings.
 o.fileencodings = "utf-8" -- encoding buffer settings.
-o.spelllang = "en_us" -- set spelling to english
 o.completeopt = "menuone,noinsert,noselect" -- complete option menu.
 o.termguicolors = true -- use the terminal gui colors.
 o.hidden = true -- navigate to other buffers without saving current.
@@ -40,9 +39,8 @@ o.keywordprg = ":help" -- open help with 'K'.
 o.clipboard = "" -- clipboard settings for my os (darwin)
 o.fillchars = { eob = " " } -- avoid trailing whitespace
 o.mouse = "a" -- enable mouse
-
 vim.cmd([[setlocal formatoptions-=cro]]) -- disable comment continouation in next line
-
+o.spelllang = "en_us" -- set spelling to english
 o.path:append({ "**" }) -- file paths, searching and ignores
 o.wildignore:append({
 	"*/node_modules/*",

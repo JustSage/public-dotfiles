@@ -58,7 +58,7 @@ null_ls.setup({
             filetypes = {
                 "html",
                 "json",
-                "markdown",
+                -- "markdown",
                 "css",
                 "javascript",
                 "javascriptreact",

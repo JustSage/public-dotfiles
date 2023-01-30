@@ -25,11 +25,12 @@ There are a lot of resources
         - [Utilities and Text manipulation](#utilities-and-text-manipulation)
         - [Completion Engines](#completion-engines)
         - [Testing & Debugging](#testing-debugging)
-        - [Integrations](#integrations)
         - [Web development essentials](#web-development-essentials)
+        - [Integrations & Miscellanious](#integrations-miscellanious)
       - [Tmux](#tmux)
       - [Git](#git)
       - [Alfred](#alfred)
+  - [For any questions regarding the configurations feel free to open an [issue](https://github.com/JustSage/public-dotfiles/issues/new).](#for-any-questions-regarding-the-configurations-feel-free-to-open-an-issuehttpsgithubcomjustsagepublic-dotfilesissuesnew)
 <!--toc:end-->
 
 
@@ -112,7 +113,7 @@ My shell of choice, superior to bash due to it's ease of use and extensiblility 
 
 >**NOTICE**<br>
 
-Don't be tempted to install `oh-my-zsh (z shell)`/`oh-my-fish(fish shell)`/`oh-my-posh(power shell)`.<br>
+> Don't be tempted to install `oh-my-zsh (z shell)`/`oh-my-fish(fish shell)`/`oh-my-posh(power shell)`.<br>
 They are extremely bloated frameworks and will most likely hinder your experience.<br>
 
 Instead you should browse their [repository](https://github.com/ohmyzsh/ohmyzsh/wiki/Plugins) and scrape for specific plugins that are relevant to your workflow.<br>
@@ -304,4 +305,6 @@ This is an essential productivity tool I have to install right away on a mac.<br
 There is a paid version which is not mandatory but I highly recommend it to experience the full power of Alfred.
 
 ---
-For any questions regarding the configurations feel free to open an [issue](https://github.com/JustSage/public-dotfiles/issues/new).
+
+## For any questions regarding the configurations feel free to open an [issue](https://github.com/JustSage/public-dotfiles/issues/new).
+
